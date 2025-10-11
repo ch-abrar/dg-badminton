@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badminton Tournament 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .poster {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 35px;
+            padding: 45px;
+            max-width: 950px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.2),
+                inset 0 0 60px rgba(255, 215, 0, 0.05);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffd700);
+            border-radius: 35px;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .poster::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .floating-shuttles {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shuttle {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shuttle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .shuttle:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 15s; }
+        .shuttle:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 13s; }
+        .shuttle:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 14s; }
+        .shuttle:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 16s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .badminton-scene {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+
+        .court-line {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.3);
+            animation: courtGlow 3s ease-in-out infinite;
+        }
+
+        .court-line.horizontal { width: 80%; height: 2px; left: 10%; }
+        .court-line.vertical { width: 2px; height: 60%; top: 20%; }
+        .court-line:nth-child(1) { top: 20%; }
+        .court-line:nth-child(2) { top: 50%; }
+        .court-line:nth-child(3) { top: 80%; }
+        .court-line:nth-child(4) { left: 30%; }
+        .court-line:nth-child(5) { left: 50%; }
+        .court-line:nth-child(6) { left: 70%; }
+
+        @keyframes courtGlow {
+            0%, 100% { opacity: 0.3; box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+            50% { opacity: 0.6; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+        }
+
+        .flying-shuttle {
+            position: absolute;
+            font-size: 40px;
+            animation: shuttleFly 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .flying-shuttle:nth-child(7) { top: 30%; left: 20%; animation-delay: 0s; }
+        .flying-shuttle:nth-child(8) { top: 60%; right: 20%; animation-delay: 2s; }
+
+        @keyframes shuttleFly {
+            0% { transform: translateY(0) translateX(0) rotate(45deg); opacity: 0; }
+            20% { opacity: 0.4; }
+            50% { transform: translateY(-80px) translateX(100px) rotate(225deg); opacity: 0.6; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(0) translateX(200px) rotate(405deg); opacity: 0; }
+        }
+
+        .racket {
+            position: absolute;
+            width: 60px; height: 80px;
+            animation: racketSwing 3s ease-in-out infinite;
+        }
+
+        .racket:nth-child(9) { top: 25%; left: 15%; animation-delay: 0s; }
+        .racket:nth-child(10) { bottom: 25%; right: 15%; animation-delay: 1.5s; transform: scaleX(-1); }
+
+        @keyframes racketSwing {
+            0%, 100% { transform: rotate(-30deg) translateY(0); opacity: 0; }
+            20% { opacity: 0.15; }
+            50% { transform: rotate(30deg) translateY(-20px); opacity: 0.15; }
+            80% { opacity: 0.15; }
+        }
+
+        .racket::before {
+            content: '🎾';
+            font-size: 50px;
+            display: block;
+            transform: rotate(45deg);
+            filter: hue-rotate(180deg) brightness(1.2);
+        }
+
+        .net {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px; height: 70%;
+            background: repeating-linear-gradient(0deg, rgba(255, 215, 0, 0.2) 0px,
+                rgba(255, 215, 0, 0.2) 10px, transparent 10px, transparent 20px);
+            animation: netPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes netPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 60%; height: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        .shuttlecock-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .shuttlecock {
+            font-size: 70px;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        .glow-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
+            border-radius: 50%;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 52px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.15) 100%);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px; left: 20px;
+            font-size: 100px;
+            color: rgba(255, 215, 0, 0.2);
+            font-family: Georgia, serif;
+        }
+
+        .quote p {
+            color: #ffd700;
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-section h3 {
+            color: #ffd700;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .about-section p {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .patron-info {
+            background: rgba(255, 215, 0, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .patron-info strong {
+            color: #ffd700;
+            font-weight: 700;
+        }
+
+        .schedule-note {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            font-size: 17px;
+        }
+
+        .schedule-note strong {
+            color: #ffd700;
+            font-weight: 800;
+        }
+
+        .event-details {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            color: #fff;
+            font-size: 18px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .detail-row:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateX(10px);
+        }
+
+        .icon {
+            font-size: 28px;
+            margin-right: 15px;
+            min-width: 35px;
+        }
+
+        .detail-label {
+            color: #ffd700;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .teams-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .team {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            padding: 25px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .team:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(255, 215, 0, 0.3);
+        }
+
+        .team-header {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+            color: #1a1a2e;
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            letter-spacing: 2px;
+        }
+
+        .player-list {
+            list-style: none;
+        }
+
+        .player-list li {
+            color: #fff;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 12px;
+            border-left: 4px solid #ffd700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .player-list li:hover {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateX(8px);
+        }
+
+        .highlights {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.15) 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .highlights h3 {
+            color: #ffd700;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .highlights ul {
+            list-style: none;
+        }
+
+        .highlights li {
+            padding: 10px 0 10px 35px;
+            position: relative;
+            font-size: 17px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .highlights li:hover {
+            transform: translateX(5px);
+            color: #ffd700;
+        }
+
+        .highlights li::before {
+            content: '⭐';
+            position: absolute;
+            left: 0;
+        }
+
+        .important-notice {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 3px solid #ff6b6b;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .important-notice h3 {
+            color: #ff6b6b;
+            font-size: 22px;
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .important-notice p {
+            color: #fff;
+            text-align: center;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .event-spirit {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15) 0%, rgba(78, 205, 196, 0.08) 100%);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(78, 205, 196, 0.4);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-spirit h3 {
+            color: #4ecdc4;
+            font-size: 26px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .event-spirit p {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .reminder-box {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #ffd700;
+            border-right: 4px solid #ffd700;
+        }
+
+        .reminder-box p:first-child {
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .reminder-box strong {
+            color: #ffd700;
+            font-weight: 800;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 25px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 60%; height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        }
+
+        .organizer {
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .organizer-title {
+            color: #fff;
+            font-size: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .poster { padding: 20px; }
+            h1 { font-size: 32px; }
+            .shuttlecock { font-size: 50px; }
+            .teams-section { grid-template-columns: 1fr; }
+            .about-section p, .event-spirit p { text-align: left; font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .poster { padding: 15px; }
+            h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="floating-shuttles">
+            <div class="shuttle">🏸</div>
+            <div class="shuttle">🏸</div>
+            <div class="shuttle">🏸</div>
+            <div class="shuttle">🏸</div>
+            <div class="shuttle">🏸</div>
+        </div>
+
+        <div class="badminton-scene">
+            <div class="court-line horizontal"></div>
+            <div class="court-line horizontal"></div>
+            <div class="court-line horizontal"></div>
+            <div class="court-line vertical"></div>
+            <div class="court-line vertical"></div>
+            <div class="court-line vertical"></div>
+            <div class="flying-shuttle">🏸</div>
+            <div class="flying-shuttle">🏸</div>
+            <div class="racket"></div>
+            <div class="racket"></div>
+            <div class="net"></div>
+        </div>
+
+        <div class="content">
+            <div class="header">
+                <div class="shuttlecock-container">
+                    <div class="glow-circle"></div>
+                    <div class="shuttlecock">🏸</div>
+                </div>
+                <h1>Badminton Tournament</h1>
+                <div class="subtitle">Sports/Dream Garden Club 2025</div>
+            </div>
+
+            <div class="quote">
+                <p>"Health is Wealth" - Join us in celebrating sports and wellness</p>
+            </div>
+
+            <div class="about-section">
+                <h3>About the Tournament</h3>
+                <p>Being passionate about exercise or any physical game is a great blessing from Allah. Sports/Dream Garden Club is grateful for God's blessing and keeps trying to promote it.</p>
+                
+                <p>In this regard, the Club is going to hold a badminton tournament. We wanted to organize three or four tournaments in a year, but it was not possible due to the severity and uncertainty of the weather in the Open Air Badminton Court.</p>
+                
+                <p>The Community Center, which was supposed to be built by the Society Administration, has fallen into disrepair. But with the support of friends, we will try to build an indoor badminton court very soon, Insha'Allah.</p>
+                
+                <div class="patron-info">
+                    <p><strong>Adil Sheikh Sahib</strong>, Patron-in-Chief of DGC/Sports Club, has always actively participated in all Social and Recreational Activities. It is hoped that he will also play his part in its development.</p>
+                    
+                    <p><strong>Mian Zaheer Ahmed</strong>, an old Club Member, comes from Saudi Arabia every year to participate in the tournament. Organizing various functions in Saudi Arabia is part of their professional expertise. Therefore, they play a big role in organizing our tournament in a good manner. He is coming in the last week of this month.</p>
+                </div>
+                
+                <p class="schedule-note">According to this schedule, the Two-day Tournament will be held in the first week of November, on <strong>November 8th (Saturday) and 9th (Sunday)</strong>, Insha'Allah.</p>
+            </div>
+
+            <div class="event-details">
+                <div class="detail-row">
+                    <span class="icon">📅</span>
+                    <span class="detail-label">Date:</span>
+                    <span>November 8-9, 2025 (Saturday & Sunday)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="icon">⏰</span>
+                    <span class="detail-label">Duration:</span>
+                    <span>Two-Day Tournament</span>
+                </div>
+				<div class="detail-row">
+                    <span class="icon">👑</span>
+                    <span class="detail-label">Chief Guest:</span>
+                    <span>To Be Announced</span>
+                </div>
+                <div class="detail-row">
+                    <span class="icon">👥</span>
+                    <span class="detail-label">Patron-in-Chief:</span>
+                    <span>Adil Sheikh</span>
+                </div>
+                <div class="detail-row">
+                    <span class="icon">🌟</span>
+                    <span class="detail-label">Special Guest:</span>
+                    <span>Mian Zaheer Ahmed</span>
+                </div>
+            </div>
+
+            <div class="highlights">
+                <h3>✨ Tournament Highlights ✨</h3>
+                <ul>
+                    <li>Beautiful atmosphere & excellent feasts</li>
+                    <li>Great entertainment for all</li>
+                    <li>Fierce competitive matches</li>
+                    <li>Exciting upset possibilities</li>
+                </ul>
+            </div>
+
+            <div class="teams-section">
+                <div class="team">
+                    <div class="team-header">Team A</div>
+                    <ul class="player-list">
+                        <li>1. Yousaf Bhatti</li>
+                        <li>2. Zohaib Zaman</li>
+                        <li>3. Dr. Tariq Zia</li>
+                        <li>4. Imran Gujjar</li>
+                        <li>5. Malik Haroon</li>
+                        <li>6. Shoaib Idrees</li>
+                        <li>7. Irfan Yousaf</li>
+                        <li>8. Adeel Abbas</li>
+                        <li>9. Moaaz Mughal</li>
+                        <li>10. Abrar Sb.</li>
+                        <li>11. Awab Mughal</li>
+                        <li>12. Sohaib Zaman</li>
+                        <li>13. Hafiz Zia</li>
+                        <li>14. Mr. Burhan</li>
+                        <li>15. Mr. Saim</li>
+                        <li>16. Noorzaman</li>
+                        <li>17. Zulkaif</li>
+                    </ul>
+                </div>
+
+                <div class="team">
+                    <div class="team-header">Team B</div>
+                    <ul class="player-list">
+                        <li>1. Mian Zaheer Sb</li>
+                        <li>2. Shahbaz Khan</li>
+                        <li>3. Rezwan Sb</li>
+                        <li>4. Anis Sb</li>
+                        <li>5. Zargham Harder</li>
+                        <li>6. Abdullah</li>
+                        <li>7. Muqeed</li>
+                        <li>8. Shaheer</li>
+                        <li>9. Rehan</li>
+                        <li>10. Ahmed</li>
+                        <li>11. Fazal Adeel</li>
+                        <li>12. Fahad Junior</li>
+                        <li>13. Malik Abid</li>
+                        <li>14. Zeeshan Sb</li>
+                        <li>15. Kashif Riaz</li>
+                        <li>16. Mohsin Rasheed</li>
+                        <li>17. Malik Arshad</li>
+                        <li>18. Akmil Sb.</li>
+                        <li>19. Hassan Sb.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="important-notice">
+                <h3>⚠️ IMPORTANT - Confirm by October 20</h3>
+                <p>All players must confirm their availability by October 20, 2025. Late cancellations will disrupt the schedule. Final details, contribution amounts, and organizing committee information will be shared before October 31, 2025.</p>
+            </div>
+
+            <div class="event-spirit">
+                <h3>🎉 The Spirit of the Event 🎉</h3>
+                <p>Every Sports Member knows that this Sports Event is adorned with a beautiful atmosphere, excellent feasts, and great entertainment. Moreover, spectators get to watch the fierce matches!</p>
+                
+                <p>To make the matches more exciting, opposing players are always kept on the same page. However, in tough matches, an upset can happen at any time. Therefore, without the tension of winning or losing, we should participate with a positive mindset and enjoy the environment of this beautiful event.</p>
+                
+                <div class="reminder-box">
+                    <p><strong>📋 Important Reminder:</strong></p>
+                    <p>Players included in the list should indicate their availability by <strong>October 20</strong>. If anyone refuses to play after this date, the schedule will be disturbed.</p>
+                    <p>The final schedule, including contribution amount, Organizing Committee, and other details will be shared before <strong>October 31st</strong>.</p>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p class="organizer">Shahbaz Khan</p>
+                <p class="organizer-title">Secretary General - Dream Garden Sports Club</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                

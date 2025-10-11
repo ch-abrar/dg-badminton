@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Organizing Committee</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(78, 205, 196, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .container {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 35px;
+            padding: 45px;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.2);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffd700);
+            border-radius: 35px;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+
+        .float-icon {
+            position: absolute;
+            font-size: 40px;
+            animation: floatUp 15s infinite ease-in-out;
+        }
+
+        .float-icon:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .float-icon:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 14s; }
+        .float-icon:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 13s; }
+        .float-icon:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 15s; }
+        .float-icon:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 11s; }
+
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        .icon-container {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: rotate 3s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotate(-10deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.1); }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 48px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #4ecdc4;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .intro-section p {
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .committee-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .committee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .card-title {
+            color: #ffd700;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .card-description {
+            color: #4ecdc4;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .member-tag {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+            padding: 12px 18px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border-left: 4px solid #ffd700;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-tag:hover {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.15) 100%);
+            transform: translateX(5px);
+            border-left-width: 6px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .urdu-text {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border-right: 4px solid #4ecdc4;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .urdu-text p {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.8;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastalikh Urdu', 'Urdu Typesetting', serif;
+        }
+
+        .timeline-note {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border-left: 4px solid #ff6b6b;
+            border-right: 4px solid #ff6b6b;
+        }
+
+        .timeline-note p {
+            color: #fff;
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .timeline-note strong {
+            color: #ff6b6b;
+            font-weight: 800;
+        }
+
+        .special-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(138, 43, 226, 0.1) 100%);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .special-card .card-title {
+            color: #ba68c8;
+            text-shadow: 0 2px 10px rgba(186, 104, 200, 0.5);
+        }
+
+        .special-card .member-tag {
+            background: linear-gradient(90deg, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0.05) 100%);
+            border-left-color: #ba68c8;
+        }
+
+        .special-card .member-tag:hover {
+            background: linear-gradient(90deg, rgba(138, 43, 226, 0.25) 0%, rgba(138, 43, 226, 0.15) 100%);
+        }
+
+        .footer-note {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15) 0%, rgba(78, 205, 196, 0.08) 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+            border: 2px solid rgba(78, 205, 196, 0.4);
+            text-align: center;
+        }
+
+        .footer-note p {
+            color: #fff;
+            font-size: 17px;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .footer-note strong {
+            color: #4ecdc4;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 25px; }
+            h1 { font-size: 32px; }
+            .card-title { font-size: 22px; }
+            .members-grid { grid-template-columns: 1fr; }
+            .member-tag { font-size: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            h1 { font-size: 28px; }
+            .icon-container { font-size: 50px; }
+            .intro-section p { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-icons">
+            <div class="float-icon">📋</div>
+            <div class="float-icon">🏆</div>
+            <div class="float-icon">🎯</div>
+            <div class="float-icon">⚡</div>
+            <div class="float-icon">✨</div>
+        </div>
+
+        <div class="content">
+            <div class="header">
+                <div class="icon-container">🏅</div>
+                <h1>Organizing Committee</h1>
+                <div class="subtitle">Badminton Tournament 2025</div>
+            </div>
+
+            <div class="intro-section">
+                <p>The tournament date has been announced well in advance to ensure all arrangements are completed on time. Each committee has been assigned specific responsibilities to guarantee a successful and memorable event.</p>
+            </div>
+
+            <div class="committee-card">
+                <div class="card-header">
+                    <div class="card-icon">🏟️</div>
+                    <div class="card-title">Court Maintenance Committee</div>
+                </div>
+                <p class="card-description">Responsible for complete badminton court maintenance, curtain washing & installation, grass cutting, lighting, and court lining.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">Dr. Tariq Zia</div>
+                    <div class="member-tag">Yousaf Bhatti</div>
+                    <div class="member-tag">Imran Gujjar</div>
+                    <div class="member-tag">Abrar Sb.</div>
+                    <div class="member-tag">Hafiz Zia</div>
+                    <div class="member-tag">Shahbaz Khan</div>
+                    <div class="member-tag">Zahid Fazal</div>
+                </div>
+
+                <div class="urdu-text">
+                    <p>تمام پردوں کی سلائی، اگر ممکن ہو سکے تو دھلائی اور installation کرنی ہے جو کہ 25 اکتوبر تک مکمل ہو جانا ضروری ہے۔ گراس کٹنگ، لائٹس اور کورٹ کی لائننگ وغیرہ 2 اور 3 نومبر تک بھی اگر ہو جائیں تو مناسب ہے۔</p>
+                </div>
+
+                <div class="timeline-note">
+                    <p><strong>Deadline:</strong> Curtain work must be completed by <strong>October 25</strong>. Grass cutting, lights, and court lining should ideally be completed by <strong>November 2-3</strong>.</p>
+                </div>
+            </div>
+
+            <div class="committee-card">
+                <div class="card-header">
+                    <div class="card-icon">🎪</div>
+                    <div class="card-title">Decoration & Setup Committee</div>
+                </div>
+                <p class="card-description">Managing flexes, stage setup, sound system installation, and all decorative arrangements for the tournament venue.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">Mian Zaheer Sb</div>
+                    <div class="member-tag">Haji Atta Sb.</div>
+                    <div class="member-tag">Shahbaz Khan</div>
+                    <div class="member-tag">Zahid Fazal</div>
+                    <div class="member-tag">Abrar Sb</div>
+                    <div class="member-tag">Zeeshan Pervaiz</div>
+                    <div class="member-tag">Kashif Riaz</div>
+                    <div class="member-tag">Malik Abid</div>
+                    <div class="member-tag">Mr. Abdullah</div>
+                    <div class="member-tag">Shaheer / Rehan</div>
+                </div>
+
+                <div class="urdu-text">
+                    <p>فلیکسز کی تیاری، installation اور دوسرے تمام لوازمات بروقت مکمل کرنا اس ٹیم کی ذمہ داری ہے۔</p>
+                </div>
+
+                <div class="timeline-note">
+                    <p><strong>Responsibility:</strong> This team is responsible for timely completion of flex preparation, installation, and all other equipment arrangements.</p>
+                </div>
+            </div>
+
+            <div class="committee-card">
+                <div class="card-header">
+                    <div class="card-icon">🍽️</div>
+                    <div class="card-title">Refreshments Committee</div>
+                </div>
+                <p class="card-description">Arranging and managing all food, beverages, and refreshment services throughout the tournament.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">Mian Zaheer Sb</div>
+                    <div class="member-tag">Haji Atta Sb.</div>
+                    <div class="member-tag">Zahid Fazal</div>
+                    <div class="member-tag">Zeeshan Pervaiz</div>
+                    <div class="member-tag">Mohsin Rasheed</div>
+                    <div class="member-tag">Shahbaz Khan</div>
+                </div>
+            </div>
+
+            <div class="committee-card">
+                <div class="card-header">
+                    <div class="card-icon">👥</div>
+                    <div class="card-title">Team Management Committee</div>
+                </div>
+                <p class="card-description">Organizing players, balancing teams, and coordinating practice schedules to ensure fair and competitive matches.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">Yousaf Bhatti</div>
+                    <div class="member-tag">Sohaib Zaman</div>
+                    <div class="member-tag">Shoaib Idrees</div>
+                    <div class="member-tag">Irfan Yousaf</div>
+                    <div class="member-tag">Dr. Tariq Zia</div>
+                    <div class="member-tag">Adeel Abbas</div>
+                    <div class="member-tag">Abrar Sb.</div>
+                </div>
+
+                <div class="urdu-text">
+                    <p>فائنل کھلاڑی سامنے آنے کے بعد تفصیل اس کمیٹی کو دے دی جائے گی تاکہ باہمی مشاورت سے گروپ A اور B کو Balance کیا جا سکے۔ اس دفعہ یہ Process تقریباً ایک ہفتہ پہلے مکمل کر لیا جائے گا تاکہ اس کے مطابق Practice ہو سکے اور ٹورنامنٹ کے Matches بروقت شروع کیے جا سکیں۔</p>
+                </div>
+
+                <div class="timeline-note">
+                    <p><strong>Process:</strong> After finalizing players, this committee will balance Groups A and B through mutual consultation. This process will be completed <strong>one week in advance</strong> to allow proper practice time and ensure matches start on schedule.</p>
+                </div>
+            </div>
+
+            <div class="committee-card special-card">
+                <div class="card-header">
+                    <div class="card-icon">🎤</div>
+                    <div class="card-title">Master of Ceremony</div>
+                </div>
+                <p class="card-description">The voice of the tournament - announcing matches, engaging spectators, and maintaining the event's energy and excitement.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">⭐ Sohaib Idrees Sahib ⭐</div>
+                </div>
+            </div>
+
+            <div class="committee-card">
+                <div class="card-header">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-title">Trophy & Awards Committee</div>
+                </div>
+                <p class="card-description">Arranging trophies, medals, and awards for winners and participants to honor their achievements.</p>
+                
+                <div class="members-grid">
+                    <div class="member-tag">Haroon Malik</div>
+                    <div class="member-tag">Zargham Haider</div>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                <p>All committee members are requested to <strong>coordinate regularly</strong> and complete their assigned tasks within the specified timelines. Your dedication and effort will make this tournament a memorable success!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

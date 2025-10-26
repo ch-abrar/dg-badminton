@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badminton Tournament Invitation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .controls h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-download {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        .btn-download:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #invitationCard {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+        }
+
+        .circle1 {
+            width: 250px;
+            height: 250px;
+            background: #667eea;
+            top: -120px;
+            right: -60px;
+        }
+
+        .circle2 {
+            width: 180px;
+            height: 180px;
+            background: #764ba2;
+            bottom: -70px;
+            left: -40px;
+        }
+
+        .accent-line {
+            position: absolute;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            top: 0;
+            left: 0;
+            right: 0;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .header {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 18px;
+        }
+
+        .club-name {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #5a67d8 0%, #667eea 50%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .event-title {
+            font-size: 20px;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .shuttle-icon {
+            font-size: 40px;
+            margin: 8px 0;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.4));
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .guest-name {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #764ba2;
+            margin: 15px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+
+        .invitation-text {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .details-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .detail-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            color: #667eea;
+            margin-right: 6px;
+            min-width: 50px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .highlight-box h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .highlight-box p {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 5px 0;
+        }
+
+        .time-highlight {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 8px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            #invitationCard {
+                padding: 20px;
+            }
+
+            .club-name {
+                font-size: 22px;
+            }
+
+            .event-title {
+                font-size: 18px;
+            }
+
+            .guest-name {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>🎯 Customize Your Invitation</h3>
+        <div class="input-group">
+            <label for="guestName">Guest Name:</label>
+            <input type="text" id="guestName" placeholder="Enter guest name" value="Distinguished Guest">
+        </div>
+        <button class="btn-download" id="downloadBtn" onclick="downloadCard()">📥 Download as PNG</button>
+    </div>
+
+    <div class="card-container">
+        <div id="invitationCard">
+            <div class="accent-line"></div>
+            <div class="shine"></div>
+            <div class="decorative-circle circle1"></div>
+            <div class="decorative-circle circle2"></div>
+            
+            <div class="header">
+                <div class="club-name">The Dream Sports Club</div>
+                <div class="shuttle-icon">🏸</div>
+                <div class="event-title">Badminton Tournament 2025</div>
+            </div>
+
+            <div class="content">
+                <div class="guest-name">
+                    Dear <span id="displayName">Distinguished Guest</span>
+                </div>
+
+                <div class="invitation-text">
+                    <strong>We are honored to invite you as our Guest of Honor!</strong><br>
+                    Join us for an exhilarating weekend of skill, sportsmanship, and competitive spirit. Your presence will inspire our players!
+                </div>
+
+                <div class="details-box">
+                    <div class="detail-row">
+                        <span class="detail-icon">📅</span>
+                        <span class="detail-label">Dates:</span>
+                        <span>Fri & Sat, 7-8 Nov, 2025</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">📍</span>
+                        <span class="detail-label">Venue:</span>
+                        <span>Dream Sports Club</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">🏆</span>
+                        <span class="detail-label">Event:</span>
+                        <span>Championship Tournament</span>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>⭐ Prime Time - Don't Miss! ⭐</h3>
+                    <p>Most electrifying matches & fiercest competition!</p>
+                    <div class="time-highlight">7:45 PM - 8:45 PM</div>
+                    <p>Your arrival during this golden hour will make the evening spectacular!</p>
+                </div>
+
+                <div class="footer">
+                    Experience the thrill in a vibrant, healthy atmosphere.<br>
+                    Your participation means the world to us! 🌟
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const guestNameInput = document.getElementById('guestName');
+        const displayName = document.getElementById('displayName');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        guestNameInput.addEventListener('input', (e) => {
+            displayName.textContent = e.target.value || 'Distinguished Guest';
+        });
+
+        async function downloadCard() {
+            const card = document.getElementById('invitationCard');
+            const guestName = guestNameInput.value || 'Guest';
+            
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '⏳ Creating PNG...';
+            
+            try {
+                const canvas = await html2canvas(card, {
+                    scale: 3,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    scrollY: -window.scrollY,
+                    scrollX: -window.scrollX,
+                    windowWidth: card.scrollWidth,
+                    windowHeight: card.scrollHeight
+                });
+                
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = `Badminton_Invitation_${guestName.replace(/\s+/g, '_')}.png`;
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = '✅ Downloaded! Click to download again';
+                    
+                    setTimeout(() => {
+                        downloadBtn.textContent = '📥 Download as PNG';
+                    }, 3000);
+                }, 'image/png', 1.0);
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '❌ Error - Try again';
+                alert('Sorry, there was an error creating the PNG. Please try again.');
+                
+                setTimeout(() => {
+                    downloadBtn.textContent = '📥 Download as PNG';
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -172,12 +172,9 @@
         /* Shuttle logo */
         .shuttle-logo {
             margin: 0 auto 20px;
-            width: 200px;
-            height: 100px;
+            width: 120px;
+            height: 80px;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .shuttle-logo svg {
@@ -355,70 +352,29 @@
             <div class="corner-ornament ornament-br">❋</div>
             
             <div class="content">
-                <!-- Badminton Rackets and Shuttlecock Logo -->
+                <!-- Shuttle Logo -->
                 <div class="shuttle-logo">
-                    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Left Racket -->
-                        <g transform="translate(40, 50)">
-                            <!-- Racket head -->
-                            <ellipse cx="0" cy="0" rx="18" ry="22" fill="none" stroke="#d4af37" stroke-width="3"/>
-                            <ellipse cx="0" cy="0" rx="16" ry="20" fill="none" stroke="#c9a332" stroke-width="1" opacity="0.5"/>
-                            
-                            <!-- Strings -->
-                            <line x1="-14" y1="-18" x2="14" y2="18" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-10" y1="-20" x2="16" y2="16" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-5" y1="-21" x2="18" y2="14" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="0" y1="-22" x2="18" y2="10" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="5" y1="-21" x2="18" y2="5" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            
-                            <line x1="-14" y1="18" x2="14" y2="-18" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-16" y1="16" x2="10" y2="-20" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="14" x2="5" y2="-21" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="10" x2="0" y2="-22" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="5" x2="-5" y2="-21" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            
-                            <!-- Handle -->
-                            <rect x="-3" y="20" width="6" height="20" rx="3" fill="#d4af37"/>
-                            <rect x="-2.5" y="22" width="5" height="16" rx="2.5" fill="#c9a332" opacity="0.7"/>
-                        </g>
+                    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Left Wing -->
+                        <path d="M 20,60 Q 40,30 60,50 Q 50,60 40,65 Z" opacity="0.9"/>
+                        <path d="M 25,62 Q 42,38 58,55 Q 48,63 38,67 Z" opacity="0.7"/>
+                        <path d="M 30,64 Q 44,46 56,60 Q 46,66 36,69 Z" opacity="0.5"/>
                         
-                        <!-- Right Racket -->
-                        <g transform="translate(160, 50)">
-                            <!-- Racket head -->
-                            <ellipse cx="0" cy="0" rx="18" ry="22" fill="none" stroke="#d4af37" stroke-width="3"/>
-                            <ellipse cx="0" cy="0" rx="16" ry="20" fill="none" stroke="#c9a332" stroke-width="1" opacity="0.5"/>
-                            
-                            <!-- Strings -->
-                            <line x1="-14" y1="-18" x2="14" y2="18" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-10" y1="-20" x2="16" y2="16" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-5" y1="-21" x2="18" y2="14" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="0" y1="-22" x2="18" y2="10" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="5" y1="-21" x2="18" y2="5" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            
-                            <line x1="-14" y1="18" x2="14" y2="-18" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-16" y1="16" x2="10" y2="-20" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="14" x2="5" y2="-21" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="10" x2="0" y2="-22" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            <line x1="-18" y1="5" x2="-5" y2="-21" stroke="#d4af37" stroke-width="0.5" opacity="0.6"/>
-                            
-                            <!-- Handle -->
-                            <rect x="-3" y="20" width="6" height="20" rx="3" fill="#d4af37"/>
-                            <rect x="-2.5" y="22" width="5" height="16" rx="2.5" fill="#c9a332" opacity="0.7"/>
-                        </g>
+                        <!-- Shuttlecock Cork -->
+                        <ellipse cx="100" cy="70" rx="15" ry="18"/>
                         
-                        <!-- Center Shuttlecock -->
-                        <g transform="translate(100, 50)">
-                            <!-- Cork base -->
-                            <ellipse cx="0" cy="0" rx="8" ry="10" fill="#d4af37"/>
-                            <ellipse cx="0" cy="0" rx="7" ry="8" fill="#f4d03f" opacity="0.6"/>
-                            
-                            <!-- Feathers -->
-                            <path d="M -2,-10 L -10,-30 L -8,-28 L -2,-12 Z" fill="#d4af37" opacity="0.95"/>
-                            <path d="M -1,-11 L -6,-32 L -4,-30 L -1,-13 Z" fill="#d4af37" opacity="0.9"/>
-                            <path d="M 0,-12 L 0,-35 L 2,-33 L 0,-14 Z" fill="#f4d03f" opacity="0.95"/>
-                            <path d="M 1,-11 L 6,-32 L 4,-30 L 1,-13 Z" fill="#d4af37" opacity="0.9"/>
-                            <path d="M 2,-10 L 10,-30 L 8,-28 L 2,-12 Z" fill="#d4af37" opacity="0.95"/>
-                        </g>
+                        <!-- Feathers -->
+                        <path d="M 100,52 L 85,20 L 92,25 L 100,48 Z" opacity="0.95"/>
+                        <path d="M 100,50 L 92,18 L 98,23 L 100,46 Z" opacity="0.9"/>
+                        <path d="M 100,48 L 98,15 L 102,20 L 100,44 Z" opacity="0.85"/>
+                        <path d="M 100,48 L 102,15 L 106,20 L 100,44 Z" opacity="0.85"/>
+                        <path d="M 100,50 L 108,18 L 112,23 L 100,46 Z" opacity="0.9"/>
+                        <path d="M 100,52 L 115,20 L 118,25 L 100,48 Z" opacity="0.95"/>
+                        
+                        <!-- Right Wing -->
+                        <path d="M 180,60 Q 160,30 140,50 Q 150,60 160,65 Z" opacity="0.9"/>
+                        <path d="M 175,62 Q 158,38 142,55 Q 152,63 162,67 Z" opacity="0.7"/>
+                        <path d="M 170,64 Q 156,46 144,60 Q 154,66 164,69 Z" opacity="0.5"/>
                     </svg>
                 </div>
 

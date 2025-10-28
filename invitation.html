@@ -91,13 +91,13 @@
         .card-container {
             width: 100%;
             max-width: 550px;
-            aspect-ratio: 1080 / 1800;
+            aspect-ratio: 1080 / 1620;
         }
 
         #invitationCard {
             background: linear-gradient(135deg, #0a1f2e 0%, #1a3a52 50%, #2d5a7b 100%);
             border-radius: 8px;
-            padding: 25px 30px;
+            padding: 25px 30px 15px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.6);
             position: relative;
             overflow: hidden;
@@ -275,7 +275,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin: 0 auto 15px;
+            margin: 0 auto 5px;
             display: inline-block;
             position: relative;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
@@ -408,7 +408,7 @@
             try {
                 // Set exact dimensions for export
                 const targetWidth = 1080;
-                const targetHeight = 1800;
+                const targetHeight = 1620;
                 
                 const canvas = await html2canvas(card, {
                     scale: 1,

@@ -91,6 +91,7 @@
         .card-container {
             width: 100%;
             max-width: 550px;
+            aspect-ratio: 1566 / 2100;
         }
 
         #invitationCard {
@@ -101,6 +102,8 @@
             position: relative;
             overflow: hidden;
             border: 4px solid #d4af37;
+            width: 100%;
+            height: 100%;
         }
 
         /* Decorative corners */
@@ -403,19 +406,38 @@
             downloadBtn.textContent = '⏳ Creating PNG...';
             
             try {
+                // Set exact dimensions for export
+                const targetWidth = 1566;
+                const targetHeight = 2100;
+                
                 const canvas = await html2canvas(card, {
-                    scale: 3,
+                    scale: 1,
                     backgroundColor: '#1a3a52',
                     logging: false,
                     useCORS: true,
                     allowTaint: true,
                     scrollY: -window.scrollY,
                     scrollX: -window.scrollX,
-                    windowWidth: card.scrollWidth,
-                    windowHeight: card.scrollHeight
+                    width: targetWidth,
+                    height: targetHeight,
+                    windowWidth: targetWidth,
+                    windowHeight: targetHeight
                 });
                 
-                canvas.toBlob((blob) => {
+                // Ensure canvas is exactly the right size
+                const finalCanvas = document.createElement('canvas');
+                finalCanvas.width = targetWidth;
+                finalCanvas.height = targetHeight;
+                const ctx = finalCanvas.getContext('2d');
+                
+                // Fill background
+                ctx.fillStyle = '#1a3a52';
+                ctx.fillRect(0, 0, targetWidth, targetHeight);
+                
+                // Draw the captured content
+                ctx.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+                
+                finalCanvas.toBlob((blob) => {
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.download = `Badminton_Invitation_${guestName.replace(/\s+/g, '_')}.png`;

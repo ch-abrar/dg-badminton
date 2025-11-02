@@ -242,11 +242,16 @@
         }
 
         .guest-name {
-            font-size: 20px;
+            font-size: 28px;
             color: #d4af37;
             margin-bottom: 25px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.6);
+            padding: 15px 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            display: inline-block;
         }
 
         .invitation-text {
@@ -295,6 +300,27 @@
             right: -20px;
             border-width: 23px 0 23px 20px;
             border-color: transparent transparent transparent #d4af37;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .contact-name {
+            font-size: 20px;
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .contact-phone {
+            font-size: 16px;
+            color: #d4af37;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 600px) {
@@ -389,13 +415,18 @@
                 <div class="invitation-header">We Cordially Invite You to Join Us</div>
                 <div class="invitation-header">As Our Guest of Honor</div>
                 
-                <div class="guest-name">Dear <span id="displayName">Distinguished Guest</span></div>
+                <div class="guest-name"><span id="displayName">Distinguished Guest</span></div>
 
                 <div class="invitation-text">
                     Your presence will be a great privilege for us and will add charm to this event filled with sportsmanship, energy, and thrilling competitions.
                 </div>
 
                 <div class="peak-hours">Peak Hours: 7:45 PM - 8:45 PM</div>
+
+                <div class="contact-info">
+                    <div class="contact-name">Shahbaz Khan</div>
+                    <div class="contact-phone">+92 300 4289285</div>
+                </div>
             </div>
         </div>
     </div>
@@ -461,4 +492,4 @@
         }
     </script>
 </body>
-</html>
+</html>	

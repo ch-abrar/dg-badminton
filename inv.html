@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Invitation - Ghafooria Traders</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap');
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg,#0a1929 0%,#1a2332 50%,#0a1929 100%);
+            background-attachment: fixed;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:20px;
+            position:relative;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:'';
+            position:fixed;
+            top:0; left:0; right:0; bottom:0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(212,175,55,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,215,0,0.05) 0%, transparent 50%);
+            pointer-events:none;
+        }
+
+        .main-container { display:flex; flex-direction:column; align-items:center; width:100%; max-width:800px; margin:0 auto; padding:20px; }
+
+        /* Input Section */
+        .input-section {
+            background: rgba(255,255,255,0.98);
+            width:100%; max-width:650px; margin-bottom:30px; padding:20px; border-radius:15px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.3); backdrop-filter:blur(10px);
+        }
+
+        .input-section h2 {
+            font-family:'Playfair Display',serif;
+            background: linear-gradient(135deg,#d4af37 0%,#ffd700 50%,#d4af37 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+            margin-bottom:16px; text-align:center; font-size:1.6em; filter:drop-shadow(0 2px 3px rgba(212,175,55,0.2));
+        }
+
+        .input-group { margin-bottom:14px; }
+        .input-group label { display:block; margin-bottom:8px; color:#333; font-weight:600; font-size:0.95em; }
+        .input-group input {
+            width:100%; padding:12px; border:2px solid #e5e7eb; border-radius:8px; font-size:1em;
+            font-family:'Cormorant Garamond',serif; transition:all .25s ease;
+        }
+        .input-group input:focus { outline:none; border-color:#d4af37; box-shadow:0 0 0 3px rgba(212,175,55,0.14); }
+
+        .button-group { display:flex; gap:12px; margin-top:12px; }
+        .btn { flex:1; padding:12px 20px; border:none; border-radius:8px; font-size:0.95em; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+        .btn-share { background: linear-gradient(135deg,#25D366 0%,#128C7E 100%); color:#fff; box-shadow:0 4px 12px rgba(37,211,102,0.25); }
+        .btn-share:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(37,211,102,0.35); }
+        .loading { display:none; text-align:center; margin-top:10px; color:#d4af37; font-size:0.9em; font-weight:600; }
+        .loading.active { display:block; }
+
+        /* Invitation Card */
+        .invitation-container {
+            background: linear-gradient(135deg,#0f2847 0%,#1a3a5c 50%,#0f2847 100%);
+            width:100%; max-width:800px; border-radius:0; box-shadow:0 20px 60px rgba(0,0,0,0.5);
+            position:relative; overflow:hidden; padding:25px; border:5px solid #d4af37; margin:0 auto; box-sizing:border-box;
+        }
+
+        .corner{ position:absolute; width:90px; height:90px; background-size:contain; background-repeat:no-repeat; z-index:10; pointer-events:none;}
+        .corner-top-left{ top:20px; left:20px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+        .corner-top-right{ top:20px; right:20px; transform:scaleX(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+        .corner-bottom-left{ bottom:20px; left:20px; transform:scaleY(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+        .corner-bottom-right{ bottom:20px; right:20px; transform:scale(-1,-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+
+        .card-content { position:relative; z-index:5; text-align:center; padding:20px 40px; width:100%; box-sizing:border-box; }
+
+        .company-name { font-family:'Playfair Display',serif; font-size:1.3em; color:#ffffff; margin-bottom:6px; margin-top:0; font-weight:400; letter-spacing:2px; }
+        .invitation-text { font-size:1em; color:#e0e7ff; margin-top:10px; margin-bottom:8px; font-weight:300; letter-spacing:1px; }
+        .main-title { font-family:'Playfair Display',serif; font-size:2.2em; color:#ffffff; margin-bottom:12px; font-weight:700; letter-spacing:1px; }
+        .event-type { font-family:'Great Vibes',cursive; font-size:2.8em; background:linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:15px; filter:drop-shadow(0 2px 8px rgba(212,175,55,0.5)); line-height:1.2; }
+
+        /* Guest name block: golden text with subtle background behind */
+        .guest-name-wrapper {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin: 12px auto 18px auto;
+            min-height: 48px;
+        }
+
+        .guest-name-display {
+            font-family:'Cinzel',serif;
+            font-size:2.2em;
+            font-weight:500;
+            /* golden gradient text */
+            background: linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+            letter-spacing:2px; text-transform:uppercase;
+            line-height:1.05;
+            padding: 10px 22px;
+            border-radius: 10px;
+            position:relative;
+            z-index:2;
+            display:inline-block;
+            filter: drop-shadow(0 3px 8px rgba(212,175,55,0.45));
+        }
+
+        /* background block under the name (slightly darker translucent strip) */
+        .guest-name-bg {
+            position:absolute;
+            left:50%;
+            transform:translateX(-50%);
+            width: 88%;
+            max-width: 640px;
+            height: calc(3.2em + 28px);
+            background: rgba(0,0,0,0.25);
+            border-radius: 12px;
+            z-index:1;
+            box-shadow: inset 0 0 0 1px rgba(212,175,55,0.06);
+        }
+
+        .event-details { margin:20px auto; max-width:500px; padding:0 20px; box-sizing:border-box; }
+        .detail-text { color:#ffffff; font-size:1.1em; margin:6px 0; font-weight:400; letter-spacing:0.5px; }
+        .detail-emphasis { color:#d4af37; font-weight:600; }
+        .divider { width:100px; height:2px; background:linear-gradient(90deg,transparent,#d4af37,#ffd700,#d4af37,transparent); margin:15px auto; }
+
+        .chief-guest-section { margin:20px auto; padding:12px 30px; max-width:500px; border-top:1px solid rgba(212,175,55,0.3); border-bottom:1px solid rgba(212,175,55,0.3); box-sizing:border-box; }
+        .chief-guest-label { font-size:0.85em; color:#d4af37; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; font-weight:600; }
+        .chief-guest-name { font-family:'Playfair Display',serif; font-size:1.4em; color:#ffd700; font-weight:600; letter-spacing:1px; }
+
+        .contact-section { margin-top:20px; }
+        .contact-text { color:#b0c4de; font-size:0.85em; margin-bottom:4px; letter-spacing:0.5px; }
+        .contact-link { color:#d4af37; text-decoration:none; font-size:1em; font-weight:600; letter-spacing:0.5px; }
+
+        @media (max-width:700px){
+            .card-content{ padding:18px 25px; }
+            .corner{ width:70px; height:70px; }
+            .main-title{ font-size:1.8em; }
+            .event-type{ font-size:2.2em; }
+            .guest-name-display{ font-size:2.6em; }
+            .chief-guest-name{ font-size:1.2em; }
+            .input-section{ padding:20px; }
+        }
+
+        @media (max-width:500px){
+            .card-content{ padding:15px 20px; }
+            .main-title{ font-size:1.5em; }
+            .event-type{ font-size:1.9em; }
+            .guest-name-display{ font-size:2.2em; }
+            .detail-text{ font-size:1em; }
+            .corner{ width:55px; height:55px; }
+            .guest-name-bg{ width:92%; height: calc(2.2em + 28px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Input Section (Update button removed - live update) -->
+        <div class="input-section">
+            <h2>Create Your Invitation</h2>
+            <div class="input-group">
+                <label for="guestName">Enter Guest Name:</label>
+                <input type="text" id="guestName" placeholder="Enter the guest's name..." autocomplete="off" />
+            </div>
+            <div class="button-group">
+                <!-- Update button intentionally removed per request -->
+                <button class="btn btn-share" id="shareBtn">
+                    <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                    Share on WhatsApp
+                </button>
+            </div>
+            <div class="loading" id="loadingIndicator">Generating image...</div>
+        </div>
+
+        <!-- Invitation Card -->
+        <div class="invitation-container" id="invitationCard">
+            <div class="corner corner-top-left"></div>
+            <div class="corner corner-top-right"></div>
+            <div class="corner corner-bottom-left"></div>
+            <div class="corner corner-bottom-right"></div>
+
+            <div class="card-content">
+                <div class="invitation-text">You're Invited!</div>
+                <div class="main-title">Ghafooria Traders</div>
+                <div class="event-type">Special Event</div>
+
+                <!-- Guest name with background block -->
+                <div class="guest-name-wrapper" style="position:relative;">
+                    <div class="guest-name-bg" aria-hidden="true"></div>
+                    <div id="guestNameDisplay" class="guest-name-display" aria-live="polite" style="display:none;"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="event-details">
+                    <div class="detail-text"><span class="detail-emphasis">Saturday,</span> 29 November</div>
+                    <div class="detail-text"><span class="detail-emphasis">2:00 PM</span></div>
+
+                    <div class="divider" style="margin:12px auto; width:60px;"></div>
+
+                    <div class="detail-text" style="line-height:1.6;">
+                        H-180 LDA Avenue One<br/>
+                        Raiwind Road, Lahore
+                    </div>
+                </div>
+
+                <div class="chief-guest-section">
+                    <div class="chief-guest-label">Chief Guest</div>
+                    <div class="chief-guest-name">Hafeez Ur Rehman Siddiqui</div>
+                </div>
+
+                <div class="contact-section">
+                    <div class="contact-text">For inquiries</div>
+                    <a href="tel:03004503490" class="contact-link">0300-4503490</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Live update: update guest name as the user types
+        const guestInput = document.getElementById('guestName');
+        const guestDisplay = document.getElementById('guestNameDisplay');
+
+        function setGuestName(name) {
+            const trimmed = name.trim();
+            if (trimmed.length > 0) {
+                guestDisplay.textContent = trimmed;
+                guestDisplay.style.display = 'inline-block';
+            } else {
+                guestDisplay.textContent = '';
+                guestDisplay.style.display = 'none';
+            }
+        }
+
+        // Update on input instantly
+        guestInput.addEventListener('input', (e) => {
+            setGuestName(e.target.value);
+        });
+
+        // Keep Enter from doing anything unexpected; we still allow Enter to blur
+        guestInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                guestInput.blur();
+            }
+        });
+
+        // Auto-focus input
+        guestInput.focus();
+
+        // Share invitation as image (same share/download fallback as before)
+        async function shareInvitation() {
+            const name = guestInput.value.trim();
+            if (!name) {
+                alert('Please enter a guest name first!');
+                return;
+            }
+
+            setGuestName(name);
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const invitationCard = document.getElementById('invitationCard');
+
+            try {
+                loadingIndicator.classList.add('active');
+
+                // small pause to ensure DOM updates
+                await new Promise(resolve => setTimeout(resolve, 80));
+
+                const canvas = await html2canvas(invitationCard, {
+                    scale: 3,
+                    backgroundColor: '#0f2847',
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    x: 0,
+                    y: 0,
+                    scrollX: 0,
+                    scrollY: 0,
+                    width: invitationCard.scrollWidth,
+                    height: invitationCard.scrollHeight
+                });
+
+                canvas.toBlob(async function(blob) {
+                    try {
+                        const file = new File([blob], `invitation_${name.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
+
+                        if (navigator.share && navigator.canShare && navigator.canShare({ files:[file] })) {
+                            await navigator.share({
+                                files: [file],
+                                title: 'Invitation Card - Ghafooria Traders',
+                                text: `You are cordially invited to our special event at Ghafooria Traders`
+                            });
+                        } else {
+                            // fallback download
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = `invitation_${name.replace(/\s+/g, '_')}.png`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(url);
+                            alert('Invitation card downloaded! You can now share it on WhatsApp.');
+                        }
+                    } catch (err) {
+                        console.error('Error sharing:', err);
+                        alert('Error sharing the invitation. Please try again.');
+                    } finally {
+                        loadingIndicator.classList.remove('active');
+                    }
+                }, 'image/png');
+
+            } catch (err) {
+                console.error('Error generating image:', err);
+                alert('Error generating invitation image. Please try again.');
+                loadingIndicator.classList.remove('active');
+            }
+        }
+
+        // attach share button
+        document.getElementById('shareBtn').addEventListener('click', shareInvitation);
+    </script>
+</body>
+</html>

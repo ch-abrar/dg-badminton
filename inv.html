@@ -218,8 +218,8 @@
             text-transform: uppercase;
             margin-bottom: 25px;
             text-shadow: 0 2px 12px rgba(212, 175, 55, 0.5);
-            font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
-            font-style: italic;
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            font-style: normal;
         }
 
         .invitation-header {
@@ -375,7 +375,7 @@
         <h3>📋 Customize Your Invitation</h3>
         <div class="input-group">
             <label for="guestName">Guest Name:</label>
-            <input type="text" id="guestName" placeholder="Enter guest name" value="Abrar Ahmad">
+            <input type="text" id="guestName" placeholder="Enter guest name" value="Guest Name">
         </div>
         <button class="btn-download" id="downloadBtn" onclick="downloadCard()">📥 Download as PNG</button>
     </div>
@@ -436,11 +436,13 @@
                     </svg>
                 </div>
 
-                <div class="you-are-invited">You're Invited!</div>
                 <div class="company-name">GHAFOORIA TRADERS</div>
-                <div class="event-title">Special Event</div>
+                <div class="you-are-invited">You're Invited!</div>
+                
+                <div class="guest-name"><span id="displayName">Guest Name</span></div>
 
-                <div class="guest-name"><span id="displayName">Abrar Ahmad</span></div>
+                <div class="event-title">Opening Ceremony</div>
+                <div class="event-title" style="font-size: 24px; margin-bottom: 25px;">Office of Ghafooria Traders</div>
 
                 <div class="date-time-section">
                     <div class="date-time-item">
@@ -464,7 +466,8 @@
                 </div>
 
                 <div class="contact-info">
-                    <div class="contact-label">For Inquiries</div>
+                    <div class="contact-label">From</div>
+                    <div class="contact-phone" style="font-size: 20px; margin-bottom: 5px;">Muhammad Hafeez Kokhar</div>
                     <div class="contact-phone">0300-4503490</div>
                 </div>
             </div>

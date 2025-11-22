@@ -1,446 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Invitation - Ghafooria Traders</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap');
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invitation - Ghafooria Traders</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap');
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            font-family: 'Cormorant Garamond', serif;
-            background: linear-gradient(135deg,#0a1929 0%,#1a2332 50%,#0a1929 100%);
-            background-attachment: fixed;
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            padding:10px;
-            position:relative;
-            overflow-x:hidden;
-        }
+    /* NOTE: moved the decorative background inside .main-container so html2canvas captures it */
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      background: linear-gradient(135deg,#0a1929 0%,#1a2332 50%,#0a1929 100%); /* base base */
+    }
 
-        body::before{
-            content:'';
-            position:fixed;
-            top:0; left:0; right:0; bottom:0;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(212,175,55,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,215,0,0.05) 0%, transparent 50%);
-            pointer-events:none;
-        }
+    .main-container{
+      position: relative;
+      width:100%;
+      max-width:1100px;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
 
-        .main-container { display:flex; flex-direction:column; align-items:center; width:100%; max-width:1100px; margin:0 auto; padding:10px; }
+    /* decorative background is now inside .main-container (so it'll be captured) */
+    .main-container::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(212,175,55,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,215,0,0.05) 0%, transparent 50%);
+    }
 
-        /* Input Section */
-        .input-section {
-            background: rgba(255,255,255,0.98);
-            width:100%; max-width:760px; margin-bottom:30px; padding:20px; border-radius:15px;
-            box-shadow:0 10px 40px rgba(0,0,0,0.3); backdrop-filter:blur(10px);
-        }
+    /* keep content above the decorative background */
+    .main-container > * { position: relative; z-index:1; }
 
-        .input-section h2 {
-            font-family:'Playfair Display',serif;
-            background: linear-gradient(135deg,#d4af37 0%,#ffd700 50%,#d4af37 100%);
-            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-            margin-bottom:16px; text-align:center; font-size:1.6em; filter:drop-shadow(0 2px 3px rgba(212,175,55,0.2));
-        }
+    .input-section {
+      background: rgba(255,255,255,0.98);
+      width:100%; max-width:760px; margin-bottom:30px; padding:20px; border-radius:15px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.3); backdrop-filter:blur(10px);
+    }
 
-        .input-group { margin-bottom:14px; }
-        .input-group label { display:block; margin-bottom:8px; color:#333; font-weight:600; font-size:0.95em; }
-        .input-group input {
-            width:100%; padding:12px; border:2px solid #e5e7eb; border-radius:8px; font-size:1em;
-            font-family:'Cormorant Garamond',serif; transition:all .25s ease;
-        }
-        .input-group input:focus { outline:none; border-color:#d4af37; box-shadow:0 0 0 3px rgba(212,175,55,0.14); }
+    .input-section h2 {
+      font-family:'Playfair Display',serif;
+      background: linear-gradient(135deg,#d4af37 0%,#ffd700 50%,#d4af37 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:16px; text-align:center; font-size:1.6em; filter:drop-shadow(0 2px 3px rgba(212,175,55,0.2));
+    }
 
-        .button-group { display:flex; gap:12px; margin-top:12px; }
-        .btn { flex:1; padding:12px 20px; border:none; border-radius:8px; font-size:0.95em; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
-        .btn-share { background: linear-gradient(135deg,#25D366 0%,#128C7E 100%); color:#fff; box-shadow:0 4px 12px rgba(37,211,102,0.25); }
-        .btn-share:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(37,211,102,0.35); }
-        .loading { display:none; text-align:center; margin-top:10px; color:#d4af37; font-size:0.9em; font-weight:600; }
-        .loading.active { display:block; }
+    .input-group { margin-bottom:14px; }
+    .input-group label { display:block; margin-bottom:8px; color:#333; font-weight:600; font-size:0.95em; }
+    .input-group input {
+      width:100%; padding:12px; border:2px solid #e5e7eb; border-radius:8px; font-size:1em;
+      font-family:'Cormorant Garamond',serif; transition:all .25s ease;
+    }
+    .input-group input:focus { outline:none; border-color:#d4af37; box-shadow:0 0 0 3px rgba(212,175,55,0.14); }
 
-        /* Invitation Card - fluid width */
-        .invitation-container {
-            background: linear-gradient(135deg,#0f2847 0%,#1a3a5c 50%,#0f2847 100%);
-            width: 100%;
-            /* prefer 92% of viewport but never exceed 920px */
-            max-width: min(920px, 92vw);
-            margin: 0 auto;
-            border-radius: 0;
-            box-shadow:0 20px 60px rgba(0,0,0,0.5);
-            position:relative;
-            overflow:hidden;
-            padding:5px;
-            border:5px solid #d4af37;
-            box-sizing:border-box;
-        }
+    .button-group { display:flex; gap:12px; margin-top:12px; }
+    .btn { flex:1; padding:12px 20px; border:none; border-radius:8px; font-size:0.95em; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .btn-share { background: linear-gradient(135deg,#25D366 0%,#128C7E 100%); color:#fff; box-shadow:0 4px 12px rgba(37,211,102,0.25); }
+    .btn-share:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(37,211,102,0.35); }
+    .loading { display:none; text-align:center; margin-top:10px; color:#d4af37; font-size:0.9em; font-weight:600; }
+    .loading.active { display:block; }
 
-        /* Larger phones (iPhone 17 Pro Max & similar) get extra space */
-        @media (min-width:440px) {
-            .invitation-container {
-                max-width: 920px;
-                padding: 30px;
-                border-width: 6px;
-            }
-            .card-content {
-                padding: 28px 48px;
-            }
-            .guest-name-display {
-                /* larger base size on very wide phones */
-                font-size: 3.8em;
-                padding: 14px 28px;
-            }
-        }
+    /* Invitation Card - fluid width */
+    .invitation-container {
+      background: linear-gradient(135deg,#0f2847 0%,#1a3a5c 50%,#0f2847 100%);
+      width: 100%;
+      max-width: min(920px, 92vw);
+      margin: 0 auto;
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      position:relative;
+      overflow:visible; /* ensure borders/shadows visible */
+      padding:25px;
+      border:5px solid #d4af37;
+      box-sizing:border-box;
+    }
 
-        .corner{ position:absolute; width:90px; height:90px; background-size:contain; background-repeat:no-repeat; z-index:10; pointer-events:none;}
-        .corner-top-left{ top:20px; left:20px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
-        .corner-top-right{ top:20px; right:20px; transform:scaleX(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
-        .corner-bottom-left{ bottom:20px; left:20px; transform:scaleY(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
-        .corner-bottom-right{ bottom:20px; right:20px; transform:scale(-1,-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+    @media (min-width: 440px) {
+      .invitation-container { max-width: 920px; padding:30px; border-width:6px; }
+      .card-content { padding:28px 48px; }
+      .guest-name-display { font-size:3.8em; padding:14px 28px; }
+    }
 
-        .card-content { position:relative; z-index:5; text-align:center; padding:20px 40px; width:100%; box-sizing:border-box; }
+    .corner{ position:absolute; width:90px; height:90px; background-size:contain; background-repeat:no-repeat; z-index:10; pointer-events:none;}
+    .corner-top-left{ top:20px; left:20px; /* svg background omitted for brevity... keep your data-URI if desired */ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+    .corner-top-right{ top:20px; right:20px; transform:scaleX(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+    .corner-bottom-left{ bottom:20px; left:20px; transform:scaleY(-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
+    .corner-bottom-right{ bottom:20px; right:20px; transform:scale(-1,-1); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 Q10,40 20,35 Q30,30 40,28 Q50,26 60,28 L60,0 L0,0 Z' fill='%23d4af37' opacity='0.9'/%3E%3Cpath d='M0,0 L50,0 L50,50 Q40,45 30,42 Q20,40 10,40 Z' fill='%23ffd700' opacity='0.7'/%3E%3Cline x1='0' y1='25' x2='35' y2='25' stroke='%23ffd700' stroke-width='2'/%3E%3Cline x1='25' y1='0' x2='25' y2='35' stroke='%23ffd700' stroke-width='2'/%3E%3Ccircle cx='15' cy='15' r='4' fill='%23ffd700'/%3E%3Ccircle cx='35' cy='35' r='3' fill='%23d4af37'/%3E%3Cpath d='M5,5 L15,10 L10,15 Z' fill='%23ffd700' opacity='0.6'/%3E%3C/svg%3E"); }
 
-        .company-name { font-family:'Playfair Display',serif; font-size:1.3em; color:#ffffff; margin-bottom:6px; margin-top:0; font-weight:400; letter-spacing:2px; }
-        .invitation-text { font-size:1em; color:#e0e7ff; margin-top:10px; margin-bottom:8px; font-weight:300; letter-spacing:1px; }
-        .main-title { font-family:'Playfair Display',serif; font-size:2.2em; color:#ffffff; margin-bottom:12px; font-weight:700; letter-spacing:1px; }
-        .event-type { font-family:'Great Vibes',cursive; font-size:2.8em; background:linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:15px; filter:drop-shadow(0 2px 8px rgba(212,175,55,0.5)); line-height:1.2; }
+    .card-content { position:relative; z-index:5; text-align:center; padding:20px 40px; width:100%; box-sizing:border-box; }
 
-        /* Guest name block: golden text with subtle background behind */
-        .guest-name-wrapper {
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            margin: 12px auto 18px auto;
-            min-height: 48px;
-            position: relative;
-            width: 100%;
-            max-width: 820px;
-            padding: 0 12px;
-            box-sizing: border-box;
-        }
+    .invitation-text { font-size:1em; color:#e0e7ff; margin-top:10px; margin-bottom:8px; font-weight:300; letter-spacing:1px; }
+    .main-title { font-family:'Playfair Display',serif; font-size:2.2em; color:#ffffff; margin-bottom:12px; font-weight:700; letter-spacing:1px; }
+    .event-type { font-family:'Great Vibes',cursive; font-size:2.8em; background:linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:15px; filter:drop-shadow(0 2px 8px rgba(212,175,55,0.5)); }
 
-        .guest-name-display {
-            font-family:'Cinzel',serif;
-            /* responsive base size - JS will adjust further if needed */
-            font-size: clamp(2.4rem, 6.5vw, 3.2rem);
-            font-weight:700;
-            background: linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%);
-            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-            letter-spacing:2px; text-transform:uppercase;
-            line-height:1.05;
-            padding: 10px 22px;
-            border-radius: 10px;
-            position:relative;
-            z-index:2;
-            display:inline-block;
-            filter: drop-shadow(0 3px 8px rgba(212,175,55,0.45));
-            white-space: nowrap;
-        }
+    .guest-name-wrapper{ display:flex; justify-content:center; align-items:center; margin:12px auto 18px auto; min-height:48px; position:relative; width:100%; max-width:820px; padding:0 12px; box-sizing:border-box;}
 
-        /* background block under the name (slightly darker translucent strip) */
-        .guest-name-bg {
-            position:absolute;
-            left:50%;
-            transform:translateX(-50%);
-            width: calc(100% - 36px);
-            max-width: 820px;
-            height: calc(3.2rem + 28px);
-            background: rgba(0,0,0,0.25);
-            border-radius: 12px;
-            z-index:1;
-            box-shadow: inset 0 0 0 1px rgba(212,175,55,0.06);
-            transition: height .18s ease;
-        }
+    .guest-name-display {
+      font-family:'Cinzel',serif;
+      font-size: clamp(2.4rem, 6.5vw, 3.2rem);
+      font-weight:700;
+      background: linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      letter-spacing:2px; text-transform:uppercase; line-height:1.05;
+      padding:10px 22px; border-radius:10px; position:relative; z-index:2; display:inline-block; filter:drop-shadow(0 3px 8px rgba(212,175,55,0.45)); white-space:nowrap;
+    }
 
-        .event-details { margin:20px auto; max-width:500px; padding:0 20px; box-sizing:border-box; }
-        .detail-text { color:#ffffff; font-size:1.1em; margin:6px 0; font-weight:400; letter-spacing:0.5px; }
-        .detail-emphasis { color:#d4af37; font-weight:600; }
-        .divider { width:100px; height:2px; background:linear-gradient(90deg,transparent,#d4af37,#ffd700,#d4af37,transparent); margin:15px auto; }
+    .guest-name-bg { position:absolute; left:50%; transform:translateX(-50%); width:calc(100% - 36px); max-width:820px; height:calc(3.2rem + 28px); background:rgba(0,0,0,0.25); border-radius:12px; z-index:1; box-shadow: inset 0 0 0 1px rgba(212,175,55,0.06); transition:height .18s ease; }
 
-        .chief-guest-section { margin:20px auto; padding:12px 30px; max-width:500px; border-top:1px solid rgba(212,175,55,0.3); border-bottom:1px solid rgba(212,175,55,0.3); box-sizing:border-box; }
-        .chief-guest-label { font-size:0.85em; color:#d4af37; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; font-weight:600; }
-        .chief-guest-name { font-family:'Playfair Display',serif; font-size:1.4em; color:#ffd700; font-weight:600; letter-spacing:1px; }
+    .event-details { margin:20px auto; max-width:500px; padding:0 20px; box-sizing:border-box; }
+    .detail-text { color:#ffffff; font-size:1.1em; margin:6px 0; font-weight:400; letter-spacing:0.5px; }
+    .detail-emphasis { color:#d4af37; font-weight:600; }
+    .divider { width:100px; height:2px; background:linear-gradient(90deg,transparent,#d4af37,#ffd700,#d4af37,transparent); margin:15px auto; }
 
-        .contact-section { margin-top:20px; }
-        .contact-text { color:#b0c4de; font-size:0.85em; margin-bottom:4px; letter-spacing:0.5px; }
-        .contact-link { color:#d4af37; text-decoration:none; font-size:1em; font-weight:600; letter-spacing:0.5px; }
+    .chief-guest-section { margin:20px auto; padding:12px 30px; max-width:500px; border-top:1px solid rgba(212,175,55,0.3); border-bottom:1px solid rgba(212,175,55,0.3); box-sizing:border-box; }
+    .chief-guest-label { font-size:0.85em; color:#d4af37; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; font-weight:600; }
+    .chief-guest-name { font-family:'Playfair Display',serif; font-size:1.4em; color:#ffd700; font-weight:600; letter-spacing:1px; }
 
-        @media (max-width:700px){
-            .card-content{ padding:18px 25px; }
-            .corner{ width:70px; height:70px; }
-            .main-title{ font-size:1.8em; }
-            .event-type{ font-size:2.2em; }
-            .guest-name-display{ font-size: clamp(2rem, 8vw, 2.6rem); padding:10px 18px; }
-            .chief-guest-name{ font-size:1.2em; }
-            .input-section{ padding:20px; }
-        }
+    .contact-section { margin-top:20px; }
+    .contact-text { color:#b0c4de; font-size:0.85em; margin-bottom:4px; letter-spacing:0.5px; }
+    .contact-link { color:#d4af37; text-decoration:none; font-size:1em; font-weight:600; letter-spacing:0.5px; }
 
-        @media (max-width:500px){
-            .card-content{ padding:15px 20px; }
-            .main-title{ font-size:1.5em; }
-            .event-type{ font-size:1.9em; }
-            .guest-name-display{ font-size: clamp(1.8rem, 9.5vw, 2.2rem); padding:8px 14px; }
-            .detail-text{ font-size:1em; }
-            .corner{ width:55px; height:55px; }
-            .guest-name-bg{ width:calc(100% - 24px); height: calc(2.2rem + 28px); }
-        }
-    </style>
+    @media (max-width:700px){
+      .card-content{ padding:18px 25px; }
+      .corner{ width:70px; height:70px; }
+      .main-title{ font-size:1.8em; }
+      .event-type{ font-size:2.2em; }
+      .guest-name-display{ font-size: clamp(2rem, 8vw, 2.6rem); padding:10px 18px; }
+      .chief-guest-name{ font-size:1.2em; }
+      .input-section{ padding:20px; }
+    }
+
+    @media (max-width:500px){
+      .card-content{ padding:15px 20px; }
+      .main-title{ font-size:1.5em; }
+      .event-type{ font-size:1.9em; }
+      .guest-name-display{ font-size: clamp(1.8rem, 9.5vw, 2.2rem); padding:8px 14px; }
+      .detail-text{ font-size:1em; }
+      .corner{ width:55px; height:55px; }
+      .guest-name-bg{ width:calc(100% - 24px); height: calc(2.2rem + 28px); }
+    }
+
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Input Section -->
-        <div class="input-section" aria-label="Invitation controls">
-            <h2>Create Your Invitation</h2>
-            <div class="input-group">
-                <label for="guestName">Enter Guest Name:</label>
-                <input type="text" id="guestName" placeholder="Enter the guest's name..." autocomplete="off" />
-            </div>
-            <div class="button-group">
-                <button class="btn btn-share" id="shareBtn" aria-label="Share invitation">
-                    <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-                    Share / Download
-                </button>
-            </div>
-            <div class="loading" id="loadingIndicator" role="status" aria-live="polite">Generating image...</div>
-        </div>
-
-        <!-- Invitation Card -->
-        <div class="invitation-container" id="invitationCard" aria-label="Invitation card preview">
-            <div class="corner corner-top-left" aria-hidden="true"></div>
-            <div class="corner corner-top-right" aria-hidden="true"></div>
-            <div class="corner corner-bottom-left" aria-hidden="true"></div>
-            <div class="corner corner-bottom-right" aria-hidden="true"></div>
-
-            <div class="card-content">
-                <div class="invitation-text">You're Invited!</div>
-                <div class="main-title">Ghafooria Traders</div>
-                <div class="event-type">Special Event</div>
-
-                <!-- Guest name with background block -->
-                <div class="guest-name-wrapper" style="position:relative;">
-                    <div class="guest-name-bg" id="guestNameBg" aria-hidden="true"></div>
-                    <div id="guestNameDisplay" class="guest-name-display" aria-live="polite" style="display:none;"></div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="event-details">
-                    <div class="detail-text"><span class="detail-emphasis">Saturday,</span> 29 November</div>
-                    <div class="detail-text"><span class="detail-emphasis">2:00 PM</span></div>
-
-                    <div class="divider" style="margin:12px auto; width:60px;"></div>
-
-                    <div class="detail-text" style="line-height:1.6;">
-                        H-180 LDA Avenue One<br/>
-                        Raiwind Road, Lahore
-                    </div>
-                </div>
-
-                <div class="chief-guest-section">
-                    <div class="chief-guest-label">Chief Guest</div>
-                    <div class="chief-guest-name">Hafeez Ur Rehman Siddiqui</div>
-                </div>
-
-                <div class="contact-section">
-                    <div class="contact-text">For inquiries</div>
-                    <a href="tel:03004503490" class="contact-link">0300-4503490</a>
-                </div>
-            </div>
-        </div>
+  <div class="main-container">
+    <div class="input-section" aria-label="Invitation controls">
+      <h2>Create Your Invitation</h2>
+      <div class="input-group">
+        <label for="guestName">Enter Guest Name:</label>
+        <input type="text" id="guestName" placeholder="Enter the guest's name..." autocomplete="off" />
+      </div>
+      <div class="button-group">
+        <button class="btn btn-share" id="shareBtn" aria-label="Share invitation">
+          <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+          Share / Download
+        </button>
+      </div>
+      <div class="loading" id="loadingIndicator" role="status" aria-live="polite">Generating image...</div>
     </div>
 
-    <script>
-        // Elements
-        const guestInput = document.getElementById('guestName');
-        const guestDisplay = document.getElementById('guestNameDisplay');
-        const guestBg = document.getElementById('guestNameBg');
-        const shareBtn = document.getElementById('shareBtn');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const invitationCard = document.getElementById('invitationCard');
+    <div class="invitation-container" id="invitationCard" aria-label="Invitation card preview">
+      <div class="corner corner-top-left" aria-hidden="true"></div>
+      <div class="corner corner-top-right" aria-hidden="true"></div>
+      <div class="corner corner-bottom-left" aria-hidden="true"></div>
+      <div class="corner corner-bottom-right" aria-hidden="true"></div>
 
-        // Helper: set guest text and show/hide display
-        function setGuestNameText(name) {
-            const trimmed = name.trim();
-            if (trimmed.length > 0) {
-                guestDisplay.textContent = trimmed;
-                guestDisplay.style.display = 'inline-block';
+      <div class="card-content">
+        <div class="invitation-text">You're Invited!</div>
+        <div class="main-title">Ghafooria Traders</div>
+        <div class="event-type">Special Event</div>
+
+        <div class="guest-name-wrapper" style="position:relative;">
+          <div class="guest-name-bg" id="guestNameBg" aria-hidden="true"></div>
+          <div id="guestNameDisplay" class="guest-name-display" aria-live="polite" style="display:none;"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="event-details">
+          <div class="detail-text"><span class="detail-emphasis">Saturday,</span> 29 November</div>
+          <div class="detail-text"><span class="detail-emphasis">2:00 PM</span></div>
+
+          <div class="divider" style="margin:12px auto; width:60px;"></div>
+
+          <div class="detail-text" style="line-height:1.6;">
+            H-180 LDA Avenue One<br/>
+            Raiwind Road, Lahore
+          </div>
+        </div>
+
+        <div class="chief-guest-section">
+          <div class="chief-guest-label">Chief Guest</div>
+          <div class="chief-guest-name">Hafeez Ur Rehman Siddiqui</div>
+        </div>
+
+        <div class="contact-section">
+          <div class="contact-text">For inquiries</div>
+          <a href="tel:03004503490" class="contact-link">0300-4503490</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const guestInput = document.getElementById('guestName');
+    const guestDisplay = document.getElementById('guestNameDisplay');
+    const guestBg = document.getElementById('guestNameBg');
+    const shareBtn = document.getElementById('shareBtn');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const invitationCard = document.getElementById('invitationCard');
+
+    function setGuestNameText(name) {
+      const trimmed = name.trim();
+      if (trimmed.length > 0) {
+        guestDisplay.textContent = trimmed;
+        guestDisplay.style.display = 'inline-block';
+      } else {
+        guestDisplay.textContent = '';
+        guestDisplay.style.display = 'none';
+      }
+    }
+
+    function adjustBgHeight() {
+      if (guestDisplay.style.display === 'none') {
+        guestBg.style.height = 'calc(3.2rem + 28px)';
+        return;
+      }
+      const rect = guestDisplay.getBoundingClientRect();
+      const heightPx = Math.ceil(rect.height + 18);
+      guestBg.style.height = heightPx + 'px';
+    }
+
+    function fitGuestName() {
+      if (!guestDisplay || guestDisplay.style.display === 'none') {
+        adjustBgHeight();
+        return;
+      }
+      const wrapper = guestDisplay.parentElement;
+      const bgPadding = 44; // accounts for text padding + wrapper padding
+      const maxWidth = Math.max(0, wrapper.clientWidth - bgPadding);
+
+      // reset to computed CSS size (clamp)
+      guestDisplay.style.fontSize = '';
+      const computed = window.getComputedStyle(guestDisplay);
+      let fontSizePx = parseFloat(computed.fontSize) || 32;
+
+      guestDisplay.style.whiteSpace = 'nowrap';
+      guestDisplay.style.fontSize = fontSizePx + 'px';
+
+      if (guestDisplay.scrollWidth <= maxWidth) {
+        adjustBgHeight();
+        return;
+      }
+
+      let iterations = 0;
+      const minFontPx = 12;
+      while (guestDisplay.scrollWidth > maxWidth && fontSizePx > minFontPx && iterations < 300) {
+        fontSizePx -= 1;
+        guestDisplay.style.fontSize = fontSizePx + 'px';
+        iterations++;
+      }
+      adjustBgHeight();
+    }
+
+    function handleInputChange() {
+      setGuestNameText(guestInput.value);
+      requestAnimationFrame(fitGuestName);
+    }
+
+    guestInput.addEventListener('input', handleInputChange);
+    guestInput.addEventListener('paste', () => setTimeout(handleInputChange, 0));
+    guestInput.addEventListener('keypress', function(e){ if (e.key === 'Enter') { e.preventDefault(); guestInput.blur(); } });
+
+    window.addEventListener('resize', () => {
+      guestDisplay.style.fontSize = '';
+      requestAnimationFrame(fitGuestName);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setGuestNameText(guestInput.value || '');
+      requestAnimationFrame(fitGuestName);
+      guestInput.focus();
+    });
+
+    // --- html2canvas capture using exact bounding rect (prevents crop of right/bottom border)
+    async function shareInvitation() {
+      const name = guestInput.value.trim();
+      if (!name) {
+        alert('Please enter a guest name first!');
+        return;
+      }
+
+      setGuestNameText(name);
+      await new Promise(r => requestAnimationFrame(r));
+      fitGuestName();
+
+      try {
+        loadingIndicator.classList.add('active');
+
+        // small pause to ensure layout update
+        await new Promise(res => setTimeout(res, 80));
+
+        // compute bounding rect and pass exact values to html2canvas
+        const rect = invitationCard.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+
+        const canvas = await html2canvas(invitationCard, {
+          // pass the element rect so html2canvas includes borders and decorations exactly
+          x: rect.left + window.scrollX,
+          y: rect.top + window.scrollY,
+          width: Math.ceil(rect.width),
+          height: Math.ceil(rect.height),
+          scale: Math.min(scale, 3), // cap scale for memory reasons
+          backgroundColor: null,      // keep element's CSS background (don't force white)
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          windowWidth: document.documentElement.clientWidth,
+          windowHeight: document.documentElement.clientHeight
+        });
+
+        // convert to blob and share/download
+        canvas.toBlob(async function(blob) {
+          try {
+            const file = new File([blob], `invitation_${name.replace(/\s+/g,'_')}.png`, { type: 'image/png' });
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({ files: [file], title: 'Invitation Card - Ghafooria Traders', text: 'You are cordially invited.' });
             } else {
-                guestDisplay.textContent = '';
-                guestDisplay.style.display = 'none';
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = file.name;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              alert('Invitation card downloaded! You can now share it on WhatsApp.');
             }
-        }
+          } catch (err) {
+            console.error('share error', err);
+            alert('Error sharing the image — try downloading instead.');
+          } finally {
+            loadingIndicator.classList.remove('active');
+          }
+        }, 'image/png');
 
-        // Fit the guest name into the background by reducing font-size if needed
-        // Approach: start from computed font-size, reduce px-by-px until fits or min reached
-        function fitGuestName() {
-            // if no name, nothing to do
-            if (!guestDisplay || guestDisplay.style.display === 'none') return;
+      } catch (err) {
+        console.error('render error', err);
+        alert('Error generating invitation image. Make sure all resources (fonts/images) are accessible.');
+        loadingIndicator.classList.remove('active');
+      }
+    }
 
-            const wrapper = guestDisplay.parentElement; // guest-name-wrapper
-            const bgPadding = 44; // combined left+right padding approximated from guestDisplay padding + wrapper padding
-            const maxWidth = Math.max(0, wrapper.clientWidth - bgPadding); // available width for the text
-
-            // Reset to the preferred computed size (base computed from CSS clamp)
-            const style = window.getComputedStyle(guestDisplay);
-            // get numeric px size of the computed font-size
-            let fontSizePx = parseFloat(style.fontSize);
-
-            // Set max/min bounds (prevent it becoming too small)
-            const minFontPx = 12; // px - safeguard
-            const maxFontPx = Math.max(fontSizePx, 120);
-
-            // Apply starting size (to ensure measurement begins at intended size)
-            guestDisplay.style.fontSize = fontSizePx + 'px';
-
-            // If it already fits, we're done — but also ensure height of bg matches
-            if (guestDisplay.scrollWidth <= maxWidth) {
-                adjustBgHeight();
-                return;
-            }
-
-            // Otherwise step down until it fits or reaches minimum
-            // We step by 1px which is smooth and predictable. Use a cap for safety.
-            let iterations = 0;
-            while (guestDisplay.scrollWidth > maxWidth && fontSizePx > minFontPx && iterations < 200) {
-                fontSizePx = fontSizePx - 1;
-                guestDisplay.style.fontSize = fontSizePx + 'px';
-                iterations++;
-            }
-            // After loop, adjust bg height accordingly
-            adjustBgHeight();
-        }
-
-        // Adjust the guest-name-bg height to match the text block (makes strip tightly wrap)
-        function adjustBgHeight() {
-            // measure the display's height and pad a bit
-            const rect = guestDisplay.getBoundingClientRect();
-            // If display is hidden, set bg to default height
-            if (guestDisplay.style.display === 'none') {
-                guestBg.style.height = 'calc(3.2rem + 28px)';
-                return;
-            }
-            // compute appropriate height in px
-            const heightPx = Math.ceil(rect.height + 18); // 18px visual padding
-            guestBg.style.height = heightPx + 'px';
-        }
-
-        // Update flow when input changes
-        function handleInputChange() {
-            setGuestNameText(guestInput.value);
-            // allow a tiny delay for layout engine, then fit
-            requestAnimationFrame(() => {
-                fitGuestName();
-            });
-        }
-
-        // Event listeners
-        guestInput.addEventListener('input', handleInputChange);
-        guestInput.addEventListener('paste', () => {
-            setTimeout(handleInputChange, 0); // handle after paste content inserted
-        });
-
-        // prevent Enter from submitting the page; blur instead
-        guestInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                guestInput.blur();
-            }
-        });
-
-        // fit name on window resize (e.g., rotate device)
-        window.addEventListener('resize', () => {
-            // reset fontSize so computed clamp takes effect before fitting
-            guestDisplay.style.fontSize = '';
-            requestAnimationFrame(() => fitGuestName());
-        });
-
-        // initial focus
-        guestInput.focus();
-
-        // Share invitation as image (keeps previous behavior)
-        async function shareInvitation() {
-            const name = guestInput.value.trim();
-            if (!name) {
-                alert('Please enter a guest name first!');
-                return;
-            }
-
-            // ensure the display and fit are up-to-date
-            setGuestNameText(name);
-            await new Promise(r => requestAnimationFrame(r));
-            fitGuestName();
-
-            try {
-                loadingIndicator.classList.add('active');
-
-                // small pause to ensure DOM updates rendered
-                await new Promise(resolve => setTimeout(resolve, 100));
-
-                const canvas = await html2canvas(invitationCard, {
-                    scale: 3,
-                    backgroundColor: '#0f2847',
-                    logging: false,
-                    useCORS: true,
-                    allowTaint: true,
-                    x: 0,
-                    y: 0,
-                    scrollX: 0,
-                    scrollY: 0,
-                    width: invitationCard.scrollWidth,
-                    height: invitationCard.scrollHeight
-                });
-
-                canvas.toBlob(async function(blob) {
-                    try {
-                        const file = new File([blob], `invitation_${name.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
-
-                        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                            await navigator.share({
-                                files: [file],
-                                title: 'Invitation Card - Ghafooria Traders',
-                                text: `You are cordially invited to our special event at Ghafooria Traders`
-                            });
-                        } else {
-                            // fallback: download
-                            const url = URL.createObjectURL(blob);
-                            const link = document.createElement('a');
-                            link.href = url;
-                            link.download = `invitation_${name.replace(/\s+/g, '_')}.png`;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            URL.revokeObjectURL(url);
-                            alert('Invitation card downloaded! You can now share it on WhatsApp.');
-                        }
-                    } catch (error) {
-                        console.error('Error sharing:', error);
-                        alert('Error sharing the invitation. Please try again.');
-                    } finally {
-                        loadingIndicator.classList.remove('active');
-                    }
-                }, 'image/png');
-
-            } catch (error) {
-                console.error('Error generating image:', error);
-                alert('Error generating invitation image. Please try again.');
-                loadingIndicator.classList.remove('active');
-            }
-        }
-
-        shareBtn.addEventListener('click', shareInvitation);
-
-        // run initial fit (in case there's placeholder / value prefilled)
-        document.addEventListener('DOMContentLoaded', () => {
-            setGuestNameText(guestInput.value || '');
-            requestAnimationFrame(() => fitGuestName());
-        });
-    </script>
+    shareBtn.addEventListener('click', shareInvitation);
+  </script>
 </body>
 </html>
-
-

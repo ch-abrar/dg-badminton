@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Invitation - Ghafooria Traders</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -33,12 +33,12 @@
             pointer-events:none;
         }
 
-        .main-container { display:flex; flex-direction:column; align-items:center; width:100%; max-width:800px; margin:0 auto; padding:20px; }
+        .main-container { display:flex; flex-direction:column; align-items:center; width:100%; max-width:1100px; margin:0 auto; padding:20px; }
 
         /* Input Section */
         .input-section {
             background: rgba(255,255,255,0.98);
-            width:100%; max-width:650px; margin-bottom:30px; padding:20px; border-radius:15px;
+            width:100%; max-width:760px; margin-bottom:30px; padding:20px; border-radius:15px;
             box-shadow:0 10px 40px rgba(0,0,0,0.3); backdrop-filter:blur(10px);
         }
 
@@ -64,11 +64,37 @@
         .loading { display:none; text-align:center; margin-top:10px; color:#d4af37; font-size:0.9em; font-weight:600; }
         .loading.active { display:block; }
 
-        /* Invitation Card */
+        /* Invitation Card - fluid width */
         .invitation-container {
             background: linear-gradient(135deg,#0f2847 0%,#1a3a5c 50%,#0f2847 100%);
-            width:100%; max-width:800px; border-radius:0; box-shadow:0 20px 60px rgba(0,0,0,0.5);
-            position:relative; overflow:hidden; padding:25px; border:5px solid #d4af37; margin:0 auto; box-sizing:border-box;
+            width: 100%;
+            /* prefer 92% of viewport but never exceed 920px */
+            max-width: min(920px, 92vw);
+            margin: 0 auto;
+            border-radius: 0;
+            box-shadow:0 20px 60px rgba(0,0,0,0.5);
+            position:relative;
+            overflow:hidden;
+            padding:25px;
+            border:5px solid #d4af37;
+            box-sizing:border-box;
+        }
+
+        /* Larger phones (iPhone 17 Pro Max & similar) get extra space */
+        @media (min-width: 440px) {
+            .invitation-container {
+                max-width: 920px;
+                padding: 30px;
+                border-width: 6px;
+            }
+            .card-content {
+                padding: 28px 48px;
+            }
+            .guest-name-display {
+                /* larger base size on very wide phones */
+                font-size: 3.8em;
+                padding: 14px 28px;
+            }
         }
 
         .corner{ position:absolute; width:90px; height:90px; background-size:contain; background-repeat:no-repeat; z-index:10; pointer-events:none;}
@@ -91,13 +117,18 @@
             align-items:center;
             margin: 12px auto 18px auto;
             min-height: 48px;
+            position: relative;
+            width: 100%;
+            max-width: 820px;
+            padding: 0 12px;
+            box-sizing: border-box;
         }
 
         .guest-name-display {
             font-family:'Cinzel',serif;
-            font-size:2.2em;
-            font-weight:500;
-            /* golden gradient text */
+            /* responsive base size - JS will adjust further if needed */
+            font-size: clamp(2.4rem, 6.5vw, 3.2rem);
+            font-weight:700;
             background: linear-gradient(135deg,#ffd700 0%,#d4af37 50%,#ffd700 100%);
             -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
             letter-spacing:2px; text-transform:uppercase;
@@ -108,6 +139,7 @@
             z-index:2;
             display:inline-block;
             filter: drop-shadow(0 3px 8px rgba(212,175,55,0.45));
+            white-space: nowrap;
         }
 
         /* background block under the name (slightly darker translucent strip) */
@@ -115,13 +147,14 @@
             position:absolute;
             left:50%;
             transform:translateX(-50%);
-            width: 88%;
-            max-width: 640px;
-            height: calc(3.2em + 28px);
+            width: calc(100% - 36px);
+            max-width: 820px;
+            height: calc(3.2rem + 28px);
             background: rgba(0,0,0,0.25);
             border-radius: 12px;
             z-index:1;
             box-shadow: inset 0 0 0 1px rgba(212,175,55,0.06);
+            transition: height .18s ease;
         }
 
         .event-details { margin:20px auto; max-width:500px; padding:0 20px; box-sizing:border-box; }
@@ -142,7 +175,7 @@
             .corner{ width:70px; height:70px; }
             .main-title{ font-size:1.8em; }
             .event-type{ font-size:2.2em; }
-            .guest-name-display{ font-size:2.6em; }
+            .guest-name-display{ font-size: clamp(2rem, 8vw, 2.6rem); padding:10px 18px; }
             .chief-guest-name{ font-size:1.2em; }
             .input-section{ padding:20px; }
         }
@@ -151,38 +184,37 @@
             .card-content{ padding:15px 20px; }
             .main-title{ font-size:1.5em; }
             .event-type{ font-size:1.9em; }
-            .guest-name-display{ font-size:2.2em; }
+            .guest-name-display{ font-size: clamp(1.8rem, 9.5vw, 2.2rem); padding:8px 14px; }
             .detail-text{ font-size:1em; }
             .corner{ width:55px; height:55px; }
-            .guest-name-bg{ width:92%; height: calc(2.2em + 28px); }
+            .guest-name-bg{ width:calc(100% - 24px); height: calc(2.2rem + 28px); }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <!-- Input Section (Update button removed - live update) -->
-        <div class="input-section">
+        <!-- Input Section -->
+        <div class="input-section" aria-label="Invitation controls">
             <h2>Create Your Invitation</h2>
             <div class="input-group">
                 <label for="guestName">Enter Guest Name:</label>
                 <input type="text" id="guestName" placeholder="Enter the guest's name..." autocomplete="off" />
             </div>
             <div class="button-group">
-                <!-- Update button intentionally removed per request -->
-                <button class="btn btn-share" id="shareBtn">
-                    <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-                    Share on WhatsApp
+                <button class="btn btn-share" id="shareBtn" aria-label="Share invitation">
+                    <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                    Share / Download
                 </button>
             </div>
-            <div class="loading" id="loadingIndicator">Generating image...</div>
+            <div class="loading" id="loadingIndicator" role="status" aria-live="polite">Generating image...</div>
         </div>
 
         <!-- Invitation Card -->
-        <div class="invitation-container" id="invitationCard">
-            <div class="corner corner-top-left"></div>
-            <div class="corner corner-top-right"></div>
-            <div class="corner corner-bottom-left"></div>
-            <div class="corner corner-bottom-right"></div>
+        <div class="invitation-container" id="invitationCard" aria-label="Invitation card preview">
+            <div class="corner corner-top-left" aria-hidden="true"></div>
+            <div class="corner corner-top-right" aria-hidden="true"></div>
+            <div class="corner corner-bottom-left" aria-hidden="true"></div>
+            <div class="corner corner-bottom-right" aria-hidden="true"></div>
 
             <div class="card-content">
                 <div class="invitation-text">You're Invited!</div>
@@ -191,7 +223,7 @@
 
                 <!-- Guest name with background block -->
                 <div class="guest-name-wrapper" style="position:relative;">
-                    <div class="guest-name-bg" aria-hidden="true"></div>
+                    <div class="guest-name-bg" id="guestNameBg" aria-hidden="true"></div>
                     <div id="guestNameDisplay" class="guest-name-display" aria-live="polite" style="display:none;"></div>
                 </div>
 
@@ -223,11 +255,16 @@
     </div>
 
     <script>
-        // Live update: update guest name as the user types
+        // Elements
         const guestInput = document.getElementById('guestName');
         const guestDisplay = document.getElementById('guestNameDisplay');
+        const guestBg = document.getElementById('guestNameBg');
+        const shareBtn = document.getElementById('shareBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const invitationCard = document.getElementById('invitationCard');
 
-        function setGuestName(name) {
+        // Helper: set guest text and show/hide display
+        function setGuestNameText(name) {
             const trimmed = name.trim();
             if (trimmed.length > 0) {
                 guestDisplay.textContent = trimmed;
@@ -238,12 +275,76 @@
             }
         }
 
-        // Update on input instantly
-        guestInput.addEventListener('input', (e) => {
-            setGuestName(e.target.value);
+        // Fit the guest name into the background by reducing font-size if needed
+        // Approach: start from computed font-size, reduce px-by-px until fits or min reached
+        function fitGuestName() {
+            // if no name, nothing to do
+            if (!guestDisplay || guestDisplay.style.display === 'none') return;
+
+            const wrapper = guestDisplay.parentElement; // guest-name-wrapper
+            const bgPadding = 44; // combined left+right padding approximated from guestDisplay padding + wrapper padding
+            const maxWidth = Math.max(0, wrapper.clientWidth - bgPadding); // available width for the text
+
+            // Reset to the preferred computed size (base computed from CSS clamp)
+            const style = window.getComputedStyle(guestDisplay);
+            // get numeric px size of the computed font-size
+            let fontSizePx = parseFloat(style.fontSize);
+
+            // Set max/min bounds (prevent it becoming too small)
+            const minFontPx = 12; // px - safeguard
+            const maxFontPx = Math.max(fontSizePx, 120);
+
+            // Apply starting size (to ensure measurement begins at intended size)
+            guestDisplay.style.fontSize = fontSizePx + 'px';
+
+            // If it already fits, we're done — but also ensure height of bg matches
+            if (guestDisplay.scrollWidth <= maxWidth) {
+                adjustBgHeight();
+                return;
+            }
+
+            // Otherwise step down until it fits or reaches minimum
+            // We step by 1px which is smooth and predictable. Use a cap for safety.
+            let iterations = 0;
+            while (guestDisplay.scrollWidth > maxWidth && fontSizePx > minFontPx && iterations < 200) {
+                fontSizePx = fontSizePx - 1;
+                guestDisplay.style.fontSize = fontSizePx + 'px';
+                iterations++;
+            }
+            // After loop, adjust bg height accordingly
+            adjustBgHeight();
+        }
+
+        // Adjust the guest-name-bg height to match the text block (makes strip tightly wrap)
+        function adjustBgHeight() {
+            // measure the display's height and pad a bit
+            const rect = guestDisplay.getBoundingClientRect();
+            // If display is hidden, set bg to default height
+            if (guestDisplay.style.display === 'none') {
+                guestBg.style.height = 'calc(3.2rem + 28px)';
+                return;
+            }
+            // compute appropriate height in px
+            const heightPx = Math.ceil(rect.height + 18); // 18px visual padding
+            guestBg.style.height = heightPx + 'px';
+        }
+
+        // Update flow when input changes
+        function handleInputChange() {
+            setGuestNameText(guestInput.value);
+            // allow a tiny delay for layout engine, then fit
+            requestAnimationFrame(() => {
+                fitGuestName();
+            });
+        }
+
+        // Event listeners
+        guestInput.addEventListener('input', handleInputChange);
+        guestInput.addEventListener('paste', () => {
+            setTimeout(handleInputChange, 0); // handle after paste content inserted
         });
 
-        // Keep Enter from doing anything unexpected; we still allow Enter to blur
+        // prevent Enter from submitting the page; blur instead
         guestInput.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -251,10 +352,17 @@
             }
         });
 
-        // Auto-focus input
+        // fit name on window resize (e.g., rotate device)
+        window.addEventListener('resize', () => {
+            // reset fontSize so computed clamp takes effect before fitting
+            guestDisplay.style.fontSize = '';
+            requestAnimationFrame(() => fitGuestName());
+        });
+
+        // initial focus
         guestInput.focus();
 
-        // Share invitation as image (same share/download fallback as before)
+        // Share invitation as image (keeps previous behavior)
         async function shareInvitation() {
             const name = guestInput.value.trim();
             if (!name) {
@@ -262,15 +370,16 @@
                 return;
             }
 
-            setGuestName(name);
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const invitationCard = document.getElementById('invitationCard');
+            // ensure the display and fit are up-to-date
+            setGuestNameText(name);
+            await new Promise(r => requestAnimationFrame(r));
+            fitGuestName();
 
             try {
                 loadingIndicator.classList.add('active');
 
-                // small pause to ensure DOM updates
-                await new Promise(resolve => setTimeout(resolve, 80));
+                // small pause to ensure DOM updates rendered
+                await new Promise(resolve => setTimeout(resolve, 100));
 
                 const canvas = await html2canvas(invitationCard, {
                     scale: 3,
@@ -290,14 +399,14 @@
                     try {
                         const file = new File([blob], `invitation_${name.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
 
-                        if (navigator.share && navigator.canShare && navigator.canShare({ files:[file] })) {
+                        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                             await navigator.share({
                                 files: [file],
                                 title: 'Invitation Card - Ghafooria Traders',
                                 text: `You are cordially invited to our special event at Ghafooria Traders`
                             });
                         } else {
-                            // fallback download
+                            // fallback: download
                             const url = URL.createObjectURL(blob);
                             const link = document.createElement('a');
                             link.href = url;
@@ -308,23 +417,28 @@
                             URL.revokeObjectURL(url);
                             alert('Invitation card downloaded! You can now share it on WhatsApp.');
                         }
-                    } catch (err) {
-                        console.error('Error sharing:', err);
+                    } catch (error) {
+                        console.error('Error sharing:', error);
                         alert('Error sharing the invitation. Please try again.');
                     } finally {
                         loadingIndicator.classList.remove('active');
                     }
                 }, 'image/png');
 
-            } catch (err) {
-                console.error('Error generating image:', err);
+            } catch (error) {
+                console.error('Error generating image:', error);
                 alert('Error generating invitation image. Please try again.');
                 loadingIndicator.classList.remove('active');
             }
         }
 
-        // attach share button
-        document.getElementById('shareBtn').addEventListener('click', shareInvitation);
+        shareBtn.addEventListener('click', shareInvitation);
+
+        // run initial fit (in case there's placeholder / value prefilled)
+        document.addEventListener('DOMContentLoaded', () => {
+            setGuestNameText(guestInput.value || '');
+            requestAnimationFrame(() => fitGuestName());
+        });
     </script>
 </body>
 </html>

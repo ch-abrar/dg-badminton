@@ -4,332 +4,433 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ramzan Tournament Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+SC:wght@500;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    background: #1a1a2e;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    font-family: 'Cormorant Garamond', serif;
-  }
+body {
+  background: radial-gradient(circle at top, #1a1330 0%, #050510 70%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Noto Serif', serif;
+}
 
-  .controls {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.controls input {
+  padding: 12px 20px;
+  border: 2px solid #c9a84c;
+  border-radius: 8px;
+  background: #0d1117;
+  color: #f0e6d3;
+  font-size: 16px;
+  width: 320px;
+  outline: none;
+}
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #c9a84c, #ffd700);
+  color: #1a1a2e;
+  transition: 0.3s;
+}
+.btn:hover { transform: translateY(-2px); }
+.status { color: #c9a84c; font-size: 14px; margin-bottom: 8px; }
 
-  .controls input {
-    padding: 12px 20px;
-    border: 2px solid #c9a84c;
-    border-radius: 8px;
-    background: #0d1117;
-    color: #f0e6d3;
-    font-size: 16px;
-    font-family: 'Cormorant Garamond', serif;
-    width: 320px;
-    outline: none;
-  }
-  .controls input:focus { border-color: #ffd700; }
-  .controls input::placeholder { color: #6b5e4a; }
+/* ===== CARD ===== */
+.card {
+  width: 540px;
+  height: 960px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a0c1e 0%, #060810 50%, #04040a 100%);
+  border: 3px solid #c9a84c;
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,0.15),
+    0 0 0 7px rgba(201,168,76,0.35),
+    0 0 35px rgba(201,168,76,0.3),
+    0 0 70px rgba(201,168,76,0.12),
+    inset 0 0 40px rgba(201,168,76,0.04);
+}
 
-  .btn {
-    padding: 14px 32px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-    background: linear-gradient(135deg, #c9a84c, #ffd700);
-    color: #1a1a2e;
-  }
-  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
-  .btn:disabled { opacity: 0.5; cursor: wait; }
+.card-inner-border {
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 1px solid rgba(201,168,76,0.3);
+  pointer-events: none; z-index: 5;
+}
+.card-inner-border-2 {
+  position: absolute;
+  top: 14px; left: 14px; right: 14px; bottom: 14px;
+  border: 1px solid rgba(201,168,76,0.12);
+  pointer-events: none; z-index: 5;
+}
 
-  .status { color: #c9a84c; font-size: 14px; min-height: 22px; margin-bottom: 8px; text-align: center; }
-  .status.error { color: #ff6b6b; }
+.corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: #c9a84c; border-style: solid;
+  z-index: 6; pointer-events: none;
+}
+.c-tl { top: 17px; left: 17px; border-width: 2px 0 0 2px; }
+.c-tr { top: 17px; right: 17px; border-width: 2px 2px 0 0; }
+.c-bl { bottom: 17px; left: 17px; border-width: 0 0 2px 2px; }
+.c-br { bottom: 17px; right: 17px; border-width: 0 2px 2px 0; }
 
-  .size-info { color: rgba(201,168,76,0.5); font-size: 12px; margin-bottom: 12px; }
+.card::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%; transform: translateX(-50%);
+  width: 480px; height: 280px;
+  background: radial-gradient(circle, rgba(255,215,0,0.13), transparent 70%);
+  z-index: 0;
+}
 
-  /* ========== CARD — 540x960 on screen, renders 1080x1920 at 2x ========== */
-  .card {
-    width: 540px;
-    height: 960px;
-    position: relative;
-    overflow: hidden;
-    background-color: #0a1628;
-    flex-shrink: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
+.stars {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(1px 1px at 12% 15%, rgba(255,230,150,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 28% 8%,  rgba(255,240,180,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 68% 20%, rgba(255,225,140,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 12%, rgba(255,235,170,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 40%, rgba(255,220,120,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5%  60%, rgba(255,230,140,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 45% 75%, rgba(255,240,180,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 80%, rgba(255,225,130,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 88%, rgba(255,235,160,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 92%, rgba(255,220,120,0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
 
-  .card-border {
-    position: absolute;
-    top: 10px; left: 10px; right: 10px; bottom: 10px;
-    border: 2px solid rgba(201,168,76,0.5);
-    z-index: 2; pointer-events: none;
-  }
-  .card-border-inner {
-    position: absolute;
-    top: 15px; left: 15px; right: 15px; bottom: 15px;
-    border: 1px solid rgba(201,168,76,0.25);
-    z-index: 2; pointer-events: none;
-  }
+.content {
+  position: relative; z-index: 10;
+  padding: 30px 28px 22px;
+  display: flex; flex-direction: column; align-items: center;
+  height: 100%;
+}
 
-  /* Corner ornaments */
-  .corner {
-    position: absolute;
-    width: 30px; height: 30px;
-    border-color: #c9a84c;
-    border-style: solid;
-    z-index: 3; pointer-events: none;
-  }
-  .corner-tl { top: 22px; left: 22px; border-width: 2px 0 0 2px; }
-  .corner-tr { top: 22px; right: 22px; border-width: 2px 2px 0 0; }
-  .corner-bl { bottom: 22px; left: 22px; border-width: 0 0 2px 2px; }
-  .corner-br { bottom: 22px; right: 22px; border-width: 0 2px 2px 0; }
+.club-name {
+  font-family: 'Cinzel', serif;
+  font-size: 19px; font-weight: 700;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: #e6c56a; text-align: center;
+  text-shadow: 0 0 20px rgba(255,215,0,0.3);
+  margin-top: 4px;
+}
 
-  .glow-top {
-    position: absolute;
-    top: -60px; left: 50%; transform: translateX(-50%);
-    width: 400px; height: 250px;
-    background: radial-gradient(ellipse, rgba(201,168,76,0.15) 0%, transparent 70%);
-    z-index: 0;
-  }
-  .glow-bottom {
-    position: absolute;
-    bottom: -30px; left: 50%; transform: translateX(-50%);
-    width: 450px; height: 180px;
-    background: radial-gradient(ellipse, rgba(78,205,196,0.06) 0%, transparent 70%);
-    z-index: 0;
-  }
+.ornament {
+  display: flex; align-items: center; gap: 8px;
+  width: 80%; margin: 8px 0;
+}
+.orn-line { flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent); }
+.orn-diamond { width:7px; height:7px; background:#c9a84c; transform:rotate(45deg); flex-shrink:0; }
+.orn-dot { width:3px; height:3px; border-radius:50%; background:rgba(201,168,76,0.6); }
 
-  .content {
-    position: relative; z-index: 3;
-    padding: 36px 32px 28px;
-    display: flex; flex-direction: column; align-items: center;
-    height: 100%;
-  }
+.ramadan-label {
+  font-family: 'Cinzel', serif;
+  font-size: 14px; color: #7ee8e2;
+  letter-spacing: 4px; text-transform: uppercase;
+  margin-top: 2px;
+  text-shadow: 0 0 15px rgba(78,205,196,0.5);
+}
 
-  .club-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px; font-weight: 700;
-    letter-spacing: 5px; text-transform: uppercase;
-    color: #c9a84c; text-align: center;
-    margin-top: 10px;
-  }
-  .club-subtitle {
-    font-size: 13px; letter-spacing: 3px;
-    color: rgba(201,168,76,0.8); text-transform: uppercase; text-align: center;
-    margin-top: 1px;
-  }
+.emblem { font-size: 34px; margin: 4px 0; line-height: 1; }
 
-  .ornament { display: flex; align-items: center; gap: 10px; margin: 12px 0; width: 100%; justify-content: center; }
-  .ornament-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, #c9a84c, transparent); }
-  .ornament-diamond { width: 7px; height: 7px; background: #c9a84c; transform: rotate(45deg); flex-shrink: 0; }
+.title-main {
+  font-family: 'Cinzel', serif;
+  font-size: 20px; font-weight: 900;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 2px; line-height: 1.4;
+  color: #ffd700;
+  text-shadow: 0 0 25px rgba(255,215,0,0.3);
+  margin: 4px 0 2px;
+}
+.title-year {
+  font-size: 22px; letter-spacing: 10px;
+  color: rgba(255,215,0,0.75); margin-top: 4px;
+}
 
-  .shuttle-icon { font-size: 50px; margin: 2px 0 6px; }
+/* Honor */
+.honor-plaque {
+  width: 100%;
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 12px 18px; margin: 10px 0;
+  text-align: center; border-radius: 8px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.09), rgba(201,168,76,0.03));
+  position: relative;
+}
+.honor-plaque::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6), transparent);
+}
+.honor-label {
+  font-family: 'Cinzel', serif;
+  font-size: 13px; letter-spacing: 4px;
+  color: rgba(255,215,0,0.7); text-transform: uppercase;
+}
+.honor-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 34px; letter-spacing: 2px;
+  color: #ffd700; margin-top: 6px;
+  text-shadow: 0 0 15px rgba(255,215,0,0.25);
+}
+.honor-message {
+  font-size: 15px; margin-top: 7px;
+  color: #e6dac2; line-height: 1.65; font-style: italic;
+}
 
-  .ramadan-label {
-    font-family: 'Amiri', serif; font-size: 24px;
-    color: #4ecdc4; font-style: italic; letter-spacing: 1px;
-  }
-  .tournament-title {
-    font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900;
-    color: #ffd700; text-transform: uppercase; letter-spacing: 3px;
-    text-align: center; line-height: 1.2; margin: 4px 0 8px;
-  }
+/* Info grid */
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px; width: 100%; margin: 8px 0;
+}
+.info-box {
+  text-align: center; padding: 9px 5px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 7px; background: rgba(201,168,76,0.05);
+}
+.info-icon { font-size: 24px; margin-bottom: 5px; }
+.info-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 4px;
+}
+.info-value { font-size: 14px; font-weight: 600; color: #f0e8d4; line-height: 1.4; }
 
-  .vs-section { display: flex; align-items: center; gap: 14px; margin: 4px 0 10px; }
-  .player-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-  .vs-badge {
-    width: 46px; height: 46px; border-radius: 50%;
-    background: linear-gradient(135deg, #c9a84c, #ffd700);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 16px;
-    color: #1a1a2e; box-shadow: 0 0 20px rgba(201,168,76,0.3); flex-shrink: 0;
-  }
+/* Details */
+.details-section {
+  width: 100%;
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 8px; padding: 10px 16px; margin: 4px 0;
+}
+.details-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+.details-row:last-child { border-bottom: none; }
+.details-key {
+  font-family: 'Cinzel', serif;
+  font-size: 9.5px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(201,168,76,0.7);
+}
+.details-val { color: #e8dcc8; font-size: 12px; }
 
-  .guest-section {
-    background-color: rgba(201,168,76,0.06);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 10px; padding: 16px 24px; text-align: center;
-    margin: 6px 0 10px; width: 100%;
-  }
-  .guest-label { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 4px; }
-  .guest-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #ffd700; font-style: italic; }
-  .guest-message { font-size: 15px; color: #e0d4c0; line-height: 1.55; margin-top: 6px; font-style: italic; }
+/* Schedule */
+.schedule-section { width: 100%; text-align: center; margin: 6px 0 4px; }
+.schedule-title {
+  font-family: 'Cinzel', serif;
+  font-size: 17px; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(201,168,76,0.75); margin-bottom: 10px;
+}
+.schedule-row {
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center; margin: 7px 0;
+}
+.schedule-badge {
+  font-family: 'Cinzel', serif; font-size: 15px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 14px; padding: 5px 18px;
+  color: #c9a84c; letter-spacing: 1.5px;
+}
+.schedule-val { color: #ddd; font-size: 18px; }
 
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; margin: 8px 0 12px; }
-  .info-box { text-align: center; padding: 10px 6px; border: 1px solid rgba(201,168,76,0.15); border-radius: 8px; background-color: rgba(201,168,76,0.04); }
-  .info-icon { font-size: 22px; margin-bottom: 3px; }
-  .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 3px; }
-  .info-value { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
+.golden-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.14), rgba(201,168,76,0.07));
+  border: 1px solid rgba(201,168,76,0.45);
+  border-radius: 30px; padding: 11px 28px; margin: 8px 0 5px;
+}
+.golden-time {
+  font-family: 'Cinzel', serif;
+  font-size: 20px; font-weight: 700;
+  color: #ffd700; letter-spacing: 1px;
+  text-shadow: 0 0 18px rgba(255,215,0,0.4);
+}
+.golden-note {
+  font-size: 15px; color: rgba(255,215,0,0.8);
+  font-style: italic; text-align: center; margin-bottom: 2px;
+}
 
-  .overview-text { font-size: 15px; color: #d4c8b0; line-height: 1.6; text-align: center; margin: 10px 0 4px; }
-  .overview-text strong { color: #fff; }
+.spacer { flex: 1; }
 
-  .golden-hour {
-    display: inline-flex; align-items: center;
-    background-color: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 24px; padding: 8px 22px; margin: 6px 0;
-  }
-  .golden-time { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: #ffd700; letter-spacing: 1px; }
-
-  .golden-note { font-size: 18px; color: #ffd700; font-style: italic; text-align: center; margin-top: 4px; font-family: 'Playfair Display', serif; font-weight: 700; }
-
-  .spacer { flex: 1; }
-
-  .footer-art { display: flex; align-items: center; gap: 14px; padding-top: 8px; }
-  .crescent { font-size: 20px; opacity: 0.6; }
-  .footer-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent); }
+.footer {
+  display: flex; align-items: center; gap: 12px;
+  width: 80%; padding-top: 6px;
+}
+.footer-line { flex:1; height:1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.35), transparent); }
+.footer-icons { font-size: 15px; opacity: 0.6; letter-spacing: 4px; }
 </style>
 </head>
 <body>
 
 <div class="controls">
-  <input type="text" id="guestInput" placeholder="Enter Guest Name..." value="Dear Distinguished Guest" />
-  <button class="btn" id="btnExport" onclick="exportCard()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Download HD PNG
-  </button>
+  <input type="text" id="guestInput" placeholder="Enter Guest Name..." value="Dear Distinguished Guest">
+  <button class="btn" onclick="exportCard()">⬇ Download Image</button>
 </div>
 <div class="status" id="status"></div>
-<div class="size-info">Output: 1620 × 2880 px Ultra HD PNG (Crystal clear / WhatsApp ready)</div>
 
 <div class="card" id="invitationCard">
-  <div class="card-border"></div>
-  <div class="card-border-inner"></div>
-  <div class="corner corner-tl"></div>
-  <div class="corner corner-tr"></div>
-  <div class="corner corner-bl"></div>
-  <div class="corner corner-br"></div>
-  <div class="glow-top"></div>
-  <div class="glow-bottom"></div>
+  <div class="stars"></div>
+  <div class="card-inner-border"></div>
+  <div class="card-inner-border-2"></div>
+  <div class="corner c-tl"></div>
+  <div class="corner c-tr"></div>
+  <div class="corner c-bl"></div>
+  <div class="corner c-br"></div>
 
   <div class="content">
-    <div class="club-name">The Dream Gardens<br>Lahore Sports Club</div>
 
-    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <div class="club-name">Dream Gardens<br>Lahore Sports Club</div>
 
-    <div class="shuttle-icon">🏸</div>
-
-    <div class="ramadan-label">Ramzan ul Mubarak</div>
-    <div class="tournament-title">Badminton<br>Tournament 2026</div>
-
-    <div class="vs-section">
-      <span class="player-name">Kashif Sulehri</span>
-      <div class="vs-badge">VS</div>
-      <span class="player-name">Malik Atif</span>
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-dot"></div><div class="orn-diamond"></div><div class="orn-dot"></div>
+      <div class="orn-line"></div>
     </div>
 
-    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <div class="emblem">🌙🏸</div>
+    <div class="ramadan-label">Ramzan ul Mubarak</div>
 
-    <div class="guest-section">
-      <div class="guest-label">Guest of Honor</div>
-      <div class="guest-name" id="guestDisplay">Dear Distinguished Guest</div>
-      <div class="guest-message">We are honored to invite you as our Guest of Honor!<br>Join us for an exhilarating weekend of skill, sportsmanship &amp; competitive spirit.<br>Your presence will inspire our players!</div>
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-dot"></div><div class="orn-diamond"></div><div class="orn-dot"></div>
+      <div class="orn-line"></div>
+    </div>
+
+    <div class="title-main">Kashif Salehri<br>Ramzan-ul-Mubarak<br>Badminton Tournament</div>
+    <div class="title-year">✦ &nbsp; 2 0 2 6 &nbsp; ✦</div>
+
+    <div class="honor-plaque">
+      <div class="honor-label">⬥ &nbsp; Guest of Honor &nbsp; ⬥</div>
+      <div class="honor-name" id="guestDisplay">Dear Distinguished Guest</div>
+      <div class="honor-message">
+        Your gracious presence will bless this occasion<br>
+        and inspire every player on the court.
+      </div>
     </div>
 
     <div class="info-grid">
-      <div class="info-box"><div class="info-icon">📅</div><div class="info-label">Dates</div><div class="info-value">Fri &amp; Sat<br>6–7 March 2026</div></div>
-      <div class="info-box"><div class="info-icon">📍</div><div class="info-label">Venue</div><div class="info-value">Dream Gardens<br>Sports Club</div></div>
-      <div class="info-box"><div class="info-icon">🏆</div><div class="info-label">Event</div><div class="info-value">Championship<br>Tournament</div></div>
+      <div class="info-box">
+        <div class="info-icon">📅</div>
+        <div class="info-label">Dates</div>
+        <div class="info-value">Fri &amp; Sat<br>6–7 March</div>
+      </div>
+      <div class="info-box">
+        <div class="info-icon">📍</div>
+        <div class="info-label">Venue</div>
+        <div class="info-value">Dream Gardens<br>Sports Club</div>
+      </div>
+      <div class="info-box">
+        <div class="info-icon">🏆</div>
+        <div class="info-label">Format</div>
+        <div class="info-value">Knock-out<br>Championship</div>
+      </div>
     </div>
 
-    <div class="overview-text">
-      Although you can witness nail-biting close contests<br>anytime between <strong>9:30 PM</strong> and <strong>1:30 AM</strong>, you are likely to see<br>the best matches during the following golden hour:
+    <div class="schedule-section">
+      <div class="schedule-title">⬥ Match Schedule ⬥</div>
+      <div class="schedule-row">
+        <span class="schedule-badge">Start</span>
+        <span class="schedule-val">9:30 PM &nbsp;–&nbsp; Matches Begin</span>
+      </div>
+      <div class="schedule-row">
+        <span class="schedule-badge">Finals</span>
+        <span class="schedule-val">Last match ends by 1:30 AM</span>
+      </div>
     </div>
 
-    <div class="golden-hour"><span class="golden-time">🌙 9:45 PM – 11:45 PM</span></div>
-
-    <div class="golden-note">Your arrival during the Golden Hour will make the evening spectacular ✨</div>
+    <div class="golden-pill">
+      <span class="golden-time">🌙 &nbsp;9:45 PM — 11:45 PM&nbsp; 🌙</span>
+    </div>
+    <div class="golden-note">✨ Golden Hour — Best matches of the night ✨</div>
 
     <div class="spacer"></div>
 
-    <div class="footer-art">
+    <div class="footer">
       <div class="footer-line"></div>
-      <span class="crescent">☪</span><span class="crescent">🏸</span><span class="crescent">☪</span>
+      <span class="footer-icons">☪ 🏸 ☪</span>
       <div class="footer-line"></div>
     </div>
+
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-  const guestInput = document.getElementById('guestInput');
-  const guestDisplay = document.getElementById('guestDisplay');
-  const statusEl = document.getElementById('status');
-  const btnExport = document.getElementById('btnExport');
+const guestInput   = document.getElementById('guestInput');
+const guestDisplay = document.getElementById('guestDisplay');
+const statusEl     = document.getElementById('status');
 
-  guestInput.addEventListener('input', () => {
-    guestDisplay.textContent = guestInput.value || 'Dear Distinguished Guest';
-  });
+guestInput.addEventListener('input', () => {
+  guestDisplay.textContent = guestInput.value || 'Dear Distinguished Guest';
+});
 
-  function setStatus(msg, isError) {
-    statusEl.textContent = msg;
-    statusEl.className = isError ? 'status error' : 'status';
-  }
-
-  async function waitForFonts() {
+async function exportCard() {
+  const btn = document.querySelector('.btn');
+  btn.disabled = true;
+  statusEl.textContent = '⏳ Preparing image...';
+  try {
+    // Wait for fonts to fully load
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
-    return new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 300));
+
+    const card = document.getElementById('invitationCard');
+    const canvas = await html2canvas(card, {
+      scale: 4,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#04040a',
+      letterRendering: true,
+      width: 540,
+      height: 960
+    });
+
+    // Use blob for reliable download across browsers
+    canvas.toBlob(function(blob) {
+      if (!blob) {
+        statusEl.textContent = '❌ Failed to generate image.';
+        btn.disabled = false;
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const name = (guestInput.value || 'Guest').replace(/[^a-zA-Z0-9 ]/g,'').trim().replace(/ +/g,'_');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'KashifSalehri_Tournament_' + name + '.png';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 2000);
+      statusEl.textContent = '✅ Image downloaded successfully!';
+      setTimeout(() => statusEl.textContent = '', 4000);
+      btn.disabled = false;
+    }, 'image/png');
+
+  } catch(e) {
+    console.error(e);
+    statusEl.textContent = '❌ Error: ' + e.message;
+    btn.disabled = false;
   }
-
-  async function exportCard() {
-    btnExport.disabled = true;
-    setStatus('⏳ Generating Ultra HD PNG (1620×2880)...');
-    try {
-      await waitForFonts();
-      const card = document.getElementById('invitationCard');
-      const canvas = await html2canvas(card, {
-        scale: 3,          // 540×3=1620, 960×3=2880 — ultra HD
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#0a1628',
-        logging: false,
-        width: 540,
-        height: 960
-      });
-
-      // Convert to blob and download
-      canvas.toBlob(blob => {
-        if (!blob) { setStatus('❌ Failed to generate image', true); btnExport.disabled = false; return; }
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        const safeName = (guestInput.value || 'Guest').replace(/[^a-zA-Z0-9\s]/g, '').trim().replace(/\s+/g, '_');
-        a.href = url;
-        a.download = 'Invitation_' + safeName + '.png';
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 3000);
-        setStatus('✅ Ultra HD PNG downloaded — 1620×2880px ready for WhatsApp!');
-        btnExport.disabled = false;
-        setTimeout(() => setStatus(''), 4000);
-      }, 'image/png');
-
-    } catch(err) {
-      console.error(err);
-      setStatus('❌ Error: ' + err.message, true);
-      btnExport.disabled = false;
-    }
-  }
+}
 </script>
 </body>
 </html>

@@ -239,17 +239,21 @@ body {
   text-transform: uppercase; color: rgba(201,168,76,0.75); margin-bottom: 10px;
 }
 .schedule-row {
-  display: flex; align-items: center; gap: 12px;
-  justify-content: center; margin: 7px 0;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center; gap: 12px;
+  margin: 7px auto;
+  width: 85%;
 }
 .schedule-badge {
   font-family: 'Cinzel', serif; font-size: 15px;
   background: rgba(201,168,76,0.12);
   border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 14px; padding: 5px 18px;
+  border-radius: 14px; padding: 5px 0;
   color: #c9a84c; letter-spacing: 1.5px;
+  text-align: center; display: block;
 }
-.schedule-val { color: #ddd; font-size: 18px; }
+.schedule-val { color: #ddd; font-size: 18px; text-align: left; }
 
 .golden-pill {
   display: inline-flex; align-items: center; gap: 8px;

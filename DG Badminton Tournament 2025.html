@@ -81,15 +81,16 @@
         .poster::after {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
+            top: 0; left: -150%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shine 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            animation: shine 5s infinite;
         }
 
         @keyframes shine {
-            0% { left: -100%; }
-            50%, 100% { left: 100%; }
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
         }
 
         .floating-shuttles {
@@ -105,6 +106,12 @@
             font-size: 30px;
             opacity: 0.15;
             animation: float 15s infinite ease-in-out;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .shuttle-interactive:hover {
+            transform: scale(1.5) rotate(10deg);
+            opacity: 0.5;
         }
 
         .shuttle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
@@ -175,14 +182,12 @@
         .racket:nth-child(10) { bottom: 25%; right: 15%; animation-delay: 1.5s; transform: scaleX(-1); }
 
         @keyframes racketSwing {
-            0%, 100% { transform: rotate(-30deg) translateY(0); opacity: 0; }
-            20% { opacity: 0.15; }
-            50% { transform: rotate(30deg) translateY(-20px); opacity: 0.15; }
-            80% { opacity: 0.15; }
+            0%, 100% { transform: rotate(-20deg) translateY(0); opacity: 0.1; }
+            50% { transform: rotate(20deg) translateY(-15px); opacity: 0.15; }
         }
 
         .racket::before {
-            content: '🎾';
+            content: '🏸';
             font-size: 50px;
             display: block;
             transform: rotate(45deg);
@@ -258,6 +263,15 @@
             50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
         }
 
+        @keyframes text-flicker {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+            }
+        }
+
         h1 {
             background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
             -webkit-background-clip: text;
@@ -268,6 +282,7 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             margin-bottom: 12px;
+            animation: text-flicker 3s ease-in-out infinite;
         }
 
         .subtitle {
@@ -436,6 +451,24 @@
             text-transform: uppercase;
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
             letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: teamGlow 3s infinite;
+        }
+
+        @keyframes teamGlow {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .player-list {
@@ -494,9 +527,20 @@
         }
 
         .highlights li::before {
-            content: '⭐';
+            content: '🏆';
             position: absolute;
             left: 0;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% {
+                border-color: #ff6b6b;
+                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            }
+            50% {
+                border-color: #ff3b3b;
+                box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5);
+            }
         }
 
         .important-notice {
@@ -506,6 +550,7 @@
             border-radius: 20px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            animation: pulse-border 2.5s ease-in-out infinite;
         }
 
         .important-notice h3 {
@@ -613,16 +658,25 @@
             .poster { padding: 15px; }
             h1 { font-size: 26px; }
         }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
     <div class="poster">
         <div class="floating-shuttles">
-            <div class="shuttle">🏸</div>
-            <div class="shuttle">🏸</div>
-            <div class="shuttle">🏸</div>
-            <div class="shuttle">🏸</div>
-            <div class="shuttle">🏸</div>
+            <div class="shuttle shuttle-interactive" role="img" aria-label="Badminton shuttlecock">🏸</div>
+            <div class="shuttle shuttle-interactive" role="img" aria-label="Badminton shuttlecock">🏸</div>
+            <div class="shuttle shuttle-interactive" role="img" aria-label="Badminton shuttlecock">🏸</div>
+            <div class="shuttle shuttle-interactive" role="img" aria-label="Badminton shuttlecock">🏸</div>
+            <div class="shuttle shuttle-interactive" role="img" aria-label="Badminton shuttlecock">🏸</div>
         </div>
 
         <div class="badminton-scene">
@@ -632,8 +686,8 @@
             <div class="court-line vertical"></div>
             <div class="court-line vertical"></div>
             <div class="court-line vertical"></div>
-            <div class="flying-shuttle">🏸</div>
-            <div class="flying-shuttle">🏸</div>
+            <div class="flying-shuttle" role="img" aria-label="Flying badminton shuttlecock">🏸</div>
+            <div class="flying-shuttle" role="img" aria-label="Flying badminton shuttlecock">🏸</div>
             <div class="racket"></div>
             <div class="racket"></div>
             <div class="net"></div>
@@ -643,10 +697,10 @@
             <div class="header">
                 <div class="shuttlecock-container">
                     <div class="glow-circle"></div>
-                    <div class="shuttlecock">🏸</div>
+                    <div class="shuttlecock" role="img" aria-label="Bouncing shuttlecock">🏸</div>
                 </div>
                 <h1>Badminton Tournament</h1>
-                <div class="subtitle">Sports/Dream Gardens Club</div>
+                <div class="subtitle">Sports/Dream Garden Club</div>
             </div>
 
             <div class="quote">
@@ -655,51 +709,51 @@
 
             <div class="about-section">
                 <h3>About the Tournament</h3>
-                <p>Being passionate about exercise or any physical game is a great blessing from Allah. Sports/Dream Garden Club is grateful for God's blessing and keeps trying to promote it.</p>
+                <p>A passion for exercise and physical games is a great blessing. The Sports/Dream Garden Club is grateful for this blessing and is committed to promoting it.</p>
                 
-                <p>In this regard, the Club is going to hold a badminton tournament. We wanted to organize three or four tournaments in a year, but it was not possible due to the severity and uncertainty of the weather in the Open Air Badminton Court.</p>
+                <p>In this spirit, the Club is excited to announce an upcoming badminton tournament. While we had hoped to organize multiple tournaments throughout the year, the unpredictable weather conditions at the Open Air Badminton Court have made this challenging.</p>
                 
-                <p>The Community Center, which was supposed to be built by the Society Administration, has fallen into disrepair. But with the support of friends, we will try to build an indoor badminton court very soon, Insha'Allah.</p>
+                <p>The Community Center, originally planned by the Society Administration, remains incomplete. However, with the generous support of our friends, we are optimistic that we will be able to construct an indoor badminton court soon, Insha'Allah.</p>
                 
                 <div class="patron-info">
-                    <p><strong>Adil Sheikh Sahib</strong>, Patron-in-Chief of DGC/Sports Club, has always actively participated in all Social and Recreational Activities. It is hoped that he will also play his part in its development.</p>
+                    <p>Our Patron-in-Chief, <strong>Adil Sheikh Sahib</strong>, has always been an active participant in all social and recreational activities. We are hopeful that he will continue to support the development of our club.</p>
                     
-                    <p><strong>Mian Zaheer Ahmed</strong>, an old Club Member, comes from Saudi Arabia every year to participate in the tournament. Organizing various functions in Saudi Arabia is part of their professional expertise. Therefore, they play a big role in organizing our tournament in a good manner. He is coming in the last week of this month.</p>
+                    <p>We are also honored to have <strong>Mian Zaheer Ahmed</strong>, a long-standing club member who travels from Saudi Arabia each year to participate. With his professional expertise in organizing events in Saudi Arabia, he plays a crucial role in ensuring our tournament is a success. He will be arriving in the last week of this month.</p>
                 </div>
                 
-                <p class="schedule-note">According to this schedule, the Two-day Tournament will be held in the first week of November, on <strong>November 8th (Saturday) and 9th (Sunday)</strong>, Insha'Allah.</p>
+                <p class="schedule-note">According to this schedule, the Two-day Tournament will be held in the first week of November, on <strong>7, 8 November</strong>, Insha'Allah.</p>
             </div>
 
             <div class="event-details">
                 <div class="detail-row">
-                    <span class="icon">📅</span>
+                    <span class="icon" role="img" aria-label="Date">📅</span>
                     <span class="detail-label">Date:</span>
-                    <span>November 7, 8 2025 (Friday & Saturday)</span>
+                    <span>7, 8 November</span>
                 </div>
                 <div class="detail-row">
-                    <span class="icon">⏰</span>
+                    <span class="icon" role="img" aria-label="Duration">⏰</span>
                     <span class="detail-label">Duration:</span>
                     <span>Two-Day Tournament</span>
                 </div>
-				<div class="detail-row">
-                    <span class="icon">👑</span>
+                <div class="detail-row">
+                    <span class="icon" role="img" aria-label="Chief Guest">👑</span>
                     <span class="detail-label">Chief Guest:</span>
                     <span>To Be Announced</span>
                 </div>
                 <div class="detail-row">
-                    <span class="icon">👥</span>
+                    <span class="icon" role="img" aria-label="Patron-in-Chief">👥</span>
                     <span class="detail-label">Patron-in-Chief:</span>
                     <span>Adil Sheikh</span>
                 </div>
                 <div class="detail-row">
-                    <span class="icon">🌟</span>
+                    <span class="icon" role="img" aria-label="Special Guest">🌟</span>
                     <span class="detail-label">Special Guest:</span>
                     <span>Mian Zaheer Ahmed</span>
                 </div>
             </div>
 
             <div class="highlights">
-                <h3>✨ Tournament Highlights ✨</h3>
+                <h3><span role="img" aria-label="Sparkles">✨</span> Tournament Highlights <span role="img" aria-label="Sparkles">✨</span></h3>
                 <ul>
                     <li>Beautiful atmosphere & excellent feasts</li>
                     <li>Great entertainment for all</li>
@@ -711,66 +765,32 @@
             <div class="teams-section">
                 <div class="team">
                     <div class="team-header">Group A</div>
-                    <ul class="player-list">
-                        <li>1. Yousaf Bhatti</li>
-                        <li>2. Zohaib Zaman</li>
-                        <li>3. Dr. Tariq Zia</li>
-                        <li>4. Imran Gujjar</li>
-                        <li>5. Malik Haroon</li>
-                        <li>6. Shoaib Idrees</li>
-                        <li>7. Irfan Yousaf</li>
-                        <li>8. Adeel Abbas</li>
-                        <li>9. Moaaz Mughal</li>
-                        <li>10. Abrar Sb.</li>
-                        <li>11. Awab Mughal</li>
-                        <li>12. Sohaib Zaman</li>
-                        <li>13. Hafiz Zia</li>
-                        <li>14. Mr. Burhan</li>
-                        <li>15. Mr. Saim</li>
-                        <li>16. Noorzaman</li>
-                        <li>17. Zulkaif</li>
+                    <ul class="player-list" id="groupA-list">
+                        <!-- Player list for Group A will be populated here -->
                     </ul>
                 </div>
 
                 <div class="team">
                     <div class="team-header">Group B</div>
-                    <ul class="player-list">
-                        <li>1. Mian Zaheer Sb</li>
-                        <li>2. Shahbaz Khan</li>
-                        <li>3. Rezwan Sb</li>
-                        <li>4. Anis Sb</li>
-                        <li>5. Zargham Harder</li>
-                        <li>6. Abdullah</li>
-                        <li>7. Muqeed</li>
-                        <li>8. Shaheer</li>
-                        <li>9. Rehan</li>
-                        <li>10. Ahmed</li>
-                        <li>11. Fazal Adeel</li>
-                        <li>12. Fahad Junior</li>
-                        <li>13. Malik Abid</li>
-                        <li>14. Zeeshan Sb</li>
-                        <li>15. Kashif Riaz</li>
-                        <li>16. Mohsin Rasheed</li>
-                        <li>17. Malik Arshad</li>
-                        <li>18. Akmil Sb.</li>
-                        <li>19. Hassan Sb.</li>
+                    <ul class="player-list" id="groupB-list">
+                        <!-- Player list for Group B will be populated here -->
                     </ul>
                 </div>
             </div>
 
             <div class="important-notice">
-                <h3>⚠️ IMPORTANT - Confirm by October 20</h3>
+                <h3><span role="img" aria-label="Warning">⚠️</span> IMPORTANT - Confirm by October 20</h3>
                 <p>All players must confirm their availability by October 20, 2025. Late cancellations will disrupt the schedule. Final details, contribution amounts, and organizing committee information will be shared before October 31, 2025.</p>
             </div>
 
             <div class="event-spirit">
-                <h3>🎉 The Spirit of the Event 🎉</h3>
-                <p>Every Sports Member knows that this Sports Event is adorned with a beautiful atmosphere, excellent feasts, and great entertainment. Moreover, spectators get to watch the fierce matches!</p>
+                <h3><span role="img" aria-label="Party popper">🎉</span> The Spirit of the Event <span role="img" aria-label="Party popper">🎉</span></h3>
+                <p>Every member of our sports club knows that this event is about more than just badminton. It's a celebration with a wonderful atmosphere, delicious food, and great entertainment for everyone. Plus, spectators will have the chance to witness some truly competitive matches!</p>
                 
-                <p>To make the matches more exciting, opposing players are always kept on the same page. However, in tough matches, an upset can happen at any time. Therefore, without the tension of winning or losing, we should participate with a positive mindset and enjoy the environment of this beautiful event.</p>
+                <p>To keep the competition exciting, we ensure that players of similar skill levels are matched against each other. In high-stakes games, you can always expect the unexpected, with the possibility of a major upset at any moment. We encourage all participants to play with a positive attitude, focusing on sportsmanship and enjoying the thrill of the game, rather than worrying about winning or losing.</p>
                 
                 <div class="reminder-box">
-                    <p><strong>📋 Important Reminder:</strong></p>
+                    <p><strong><span role="img" aria-label="Clipboard">📋</span> Important Reminder:</strong></p>
                     <p>Players included in the list should indicate their availability by <strong>October 20</strong>. If anyone refuses to play after this date, the schedule will be disturbed.</p>
                     <p>The final schedule, including contribution amount, Organizing Committee, and other details will be shared before <strong>October 31st</strong>.</p>
                 </div>
@@ -782,6 +802,102 @@
             </div>
         </div>
     </div>
+
+    <canvas id="particles"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('players.json')
+                .then(response => response.json())
+                .then(data => {
+                    const groupA = document.getElementById('groupA-list');
+                    const groupB = document.getElementById('groupB-list');
+
+                    data.groupA.forEach((player, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = `${index + 1}. ${player}`;
+                        groupA.appendChild(li);
+                    });
+
+                    data.groupB.forEach((player, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = `${index + 1}. ${player}`;
+                        groupB.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error loading player data:', error));
+        });
+
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+
+        const particleConfig = {
+            count: 100,
+            speed: 0.7,
+            colors: [
+                'rgba(255, 215, 0, 0.6)',
+                'rgba(255, 107, 107, 0.6)',
+                'rgba(78, 205, 196, 0.6)',
+                'rgba(255, 255, 255, 0.6)'
+            ],
+            minSize: 1,
+            maxSize: 3.5,
+        };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * particleConfig.speed;
+                this.vy = (Math.random() - 0.5) * particleConfig.speed;
+                this.size = Math.random() * (particleConfig.maxSize - particleConfig.minSize) + particleConfig.minSize;
+                this.color = particleConfig.colors[Math.floor(Math.random() * particleConfig.colors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleConfig.count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            initParticles();
+        });
+    </script>
 </body>
 </html>
                 
